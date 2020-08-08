@@ -1,10 +1,14 @@
 name = "LoopTools"
 uuid = "928ab408-997d-4a59-a6b5-2799fca5a421"
-authors = ["Feng-Kun Guo"]
+authors = ["Feng-Kun Guo <fkguo@itp.ac.cn>"]
 version = "0.1.0"
 
+[deps]
+QuadGK = "1fd47b50-473d-5c70-9696-f719f8f3bcdc"
+LoopTools_jll = "e275ce21-2bb6-5a50-939e-e917944b1aed"
+
 [compat]
-julia = "1"
+julia = ">=1.3"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

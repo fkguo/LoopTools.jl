@@ -23,16 +23,17 @@ const dd12223 = 211; const dd12233 = 214; const dd12333 = 217;
 const dd13333 = 220; const dd22222 = 223; const dd22223 = 226; const dd22233 = 229;
 const dd22333 = 232; const dd23333 = 235; const dd33333 = 238
 
-"""
-`D0i(id, p1^2, p2^2, p3^2, p4^2, (p1+p2)^2, (p2+p3)^2, m1^2, m2^2, m3^2, m4^2)` or
-`D0i(id, psq::Vector, msq::Vector)`:
+@doc raw"""
+    D0i(id, p1^2, p2^2, p3^2, p4^2, (p1+p2)^2, (p2+p3)^2, m1^2, m2^2, m3^2, m4^2)
+    D0i(id, psq::Vector, msq::Vector)
+
 four-point tensor coefficient for `id`
 
 ```math
-\\frac{μ^{4-D}}{iπ^{D/2} r_Γ} \\int
-\\frac{({\\rm numerator})\\, d^D q }{(q^2-m_1^2)\\left[(q+p_1)^2-m_2^2\\right]
-\\left[(q+p_1+p_2)^2-m_3^2\\right] \\left[(q+p_1+p_2+p_3)^2-m_4^2\\right]}
-\\quad{\\rm with}\\quad r_Γ = \\frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
+\frac{μ^{4-D}}{iπ^{D/2} r_Γ} \int
+\frac{({\rm numerator})\, d^D q }{(q^2-m_1^2)\left[(q+p_1)^2-m_2^2\right]
+\left[(q+p_1+p_2)^2-m_3^2\right] \left[(q+p_1+p_2+p_3)^2-m_4^2\right]}
+\quad{\rm with}\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
 ```
 
 Special cases:
@@ -49,46 +50,44 @@ Special cases:
 """
 function D0i(id, p1sq::Real, p2sq::Real, p3sq::Real, p4sq::Real, p12sq::Real, p23sq::Real,
                  m1sq::Real, m2sq::Real, m3sq::Real, m4sq::Real)
-    a = ccall((:ltd0i_, libLT), ComplexF64,
+    ccall((:ltd0i_, libLT), ComplexF64,
         (Ref{Int64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64},
         Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}),
          id,         p1sq,   p2sq,    p3sq,   p4sq,   p12sq,  p23sq,  m1sq,   m2sq,   m3sq,   m4sq)
-    imag(a) == 0.0 ? real(a) : a
 end
 
 function D0i(id, p1sq, p2sq, p3sq, p4sq, p12sq, p23sq, m1sq, m2sq, m3sq, m4sq)
-    a = ccall((:ltd0ic_, libLT), ComplexF64,
+    ccall((:ltd0ic_, libLT), ComplexF64,
         (Ref{Int64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64},
                      Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}),
          id,         p1sq,   p2sq,    p3sq,   p4sq,   p12sq,  p23sq,  m1sq,   m2sq,   m3sq,   m4sq)
-    imag(a) == 0.0 ? real(a) : a
 end
 
 function D0i(id, xpi::Vector{T}, xmi::Vector{T}) where T<:Real
-    a = ccall((:ltd0i2_, libLT), ComplexF64,
+    ccall((:ltd0i2_, libLT), ComplexF64,
         (Ref{Int64}, Ref{Float64}, Ref{Float64}),
          id,         xpi,  xmi)
-    imag(a) == 0.0 ? real(a) : a
 end
 
 function D0i(id, xpi::Vector, xmi::Vector)
-    a = ccall((:ltd0ic2_, libLT), ComplexF64,
+    ccall((:ltd0ic2_, libLT), ComplexF64,
         (Ref{Int64}, Ref{ComplexF64}, Ref{ComplexF64}),
          id,         complex.(xpi),  xmi)
-    imag(a) == 0.0 ? real(a) : a
 end
 
 
-"""
-`D0(p1^2, p2^2, p3^2, p4^2, (p1+p2)^2, (p2+p3)^2, m1^2, m2^2, m3^2, m4^2)` or `D0(psq::Vector, msq::Vector)`
-or `D0(psq::Vector, pijsq::Vector, msq::Vector)`:
+@doc raw"""
+    D0(p1^2, p2^2, p3^2, p4^2, (p1+p2)^2, (p2+p3)^2, m1^2, m2^2, m3^2, m4^2)
+    D0(psq::Vector, msq::Vector)
+    D0(psq::Vector, pijsq::Vector, msq::Vector)
+
 the scalar four-point one-loop function
 
 ```math
-\\frac{μ^{4-D}}{iπ^{D/2} r_Γ} \\int
-\\frac{d^D q }{(q^2-m_1^2)\\left[(q+p_1)^2-m_2^2\\right]
-\\left[(q+p_1+p_2)^2-m_3^2\\right] \\left[(q+p_1+p_2+p_3)^2-m_4^2\\right]}
-\\quad{\\rm with}\\quad r_Γ = \\frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
+\frac{μ^{4-D}}{iπ^{D/2} r_Γ} \int
+\frac{d^D q }{(q^2-m_1^2)\left[(q+p_1)^2-m_2^2\right]
+\left[(q+p_1+p_2)^2-m_3^2\right] \left[(q+p_1+p_2+p_3)^2-m_4^2\right]}
+\quad{\rm with}\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
 ```
 """
 D0(xpi::Vector, xmi::Vector) = D0i(dd0, xpi, xmi)

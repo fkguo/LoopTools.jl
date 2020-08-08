@@ -1,4 +1,4 @@
-# The 4-point one-loop integrals
+# The 5-point one-loop integrals
 const ee0 = 1; const ee1 = 4; const ee2 = 7; const ee3 = 10; const ee4 = 13;
 const ee00 = 16; const ee11 = 19; const ee12 = 22; const ee13 = 25; const ee14 = 28;
 const ee22 = 31; const ee23 = 34; const ee24 = 37; const ee33 = 40; const ee34 = 43;
@@ -20,17 +20,18 @@ const ee2244 = 229; const ee2333 = 232; const ee2334 = 235; const ee2344 = 238;
 const ee2444 = 241; const ee3333 = 244; const ee3334 = 247; const ee3344 = 250;
 const ee3444 = 253; const ee4444 = 256
 
-"""
-`E0i(id, p1^2, p2^2, p3^2, p4^2, p5^2, (p1+p2)^2, (p2+p3)^2, (p3+p4)^2, (p4+p5)^2,
-(p5+p1)^2, m1^2, m2^2, m3^2, m4^2, m5^2)`:
+@doc raw"""
+    E0i(id, p1^2, p2^2, p3^2, p4^2, p5^2, (p1+p2)^2, (p2+p3)^2, (p3+p4)^2, (p4+p5)^2, (p5+p1)^2, m1^2, m2^2, m3^2, m4^2, m5^2)
+    E0i(id, psq::Vector, msq::Vector)
+
 five-point tensor coefficient for `id`
 
 ```math
-\\frac{μ^{4-D}}{iπ^{D/2} r_Γ} \\int
-\\frac{({\\rm numerator})\\, d^D q }{(q^2-m_1^2)\\left[(q+p_1)^2-m_2^2\\right]
-\\left[(q+p_1+p_2)^2-m_3^2\\right] \\left[(q+p_1+p_2+p_3)^2-m_4^2\\right]
- \\left[(q+p_1+p_2+p_3+p_4)^2-m_5^2\\right]}
-\\quad{\\rm with}\\quad r_Γ = \\frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
+\frac{μ^{4-D}}{iπ^{D/2} r_Γ} \int
+\frac{({\rm numerator})\, d^D q }{(q^2-m_1^2)\left[(q+p_1)^2-m_2^2\right]
+\left[(q+p_1+p_2)^2-m_3^2\right] \left[(q+p_1+p_2+p_3)^2-m_4^2\right]
+ \left[(q+p_1+p_2+p_3+p_4)^2-m_5^2\right]}
+\quad{\rm with}\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
 ```
 
 Special cases:
@@ -48,55 +49,49 @@ Special cases:
 function E0i(id, p1sq::Real, p2sq::Real, p3sq::Real, p4sq::Real, p5sq::Real, p12sq::Real,
         p23sq::Real, p34sq::Real, p45sq::Real, p51sq::Real, m1sq::Real, m2sq::Real,
         m3sq::Real, m4sq::Real, m5sq::Real)
-    a = ccall((:lte0i_, libLT), ComplexF64,
+    ccall((:lte0i_, libLT), ComplexF64,
         (Ref{Int64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64},
         Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64},
         Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}),
          id,         p1sq,   p2sq,    p3sq,   p4sq,  p5sq,   p12sq,  p23sq,
              p34sq,  p45sq,  p51sq,  m1sq,   m2sq,   m3sq,   m4sq,   m5sq)
-    imag(a) == 0.0 ? real(a) : a
 end
 
 function E0i(id, xpi::Vector{T}, xmi::Vector{T}) where T<:Real
-    a = ccall((:lte0i2_, libLT), ComplexF64,
+    ccall((:lte0i2_, libLT), ComplexF64,
         (Ref{Int64}, Ref{Float64}, Ref{Float64}),
          id,         xpi,  xmi)
-    imag(a) == 0.0 ? real(a) : a
 end
 
-#
-# somehow, when one of the argument is complex, this either does not return any result
-# or kills Julia due to SIGSEGV: Segmentation fault - invalid memory reference (checked via FORTRAN).
-#
-# function E0i(id, p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq,
-#                  m1sq, m2sq, m3sq, m4sq, m5sq)
-#     a = ccall((:lte0ic_, libLT), ComplexF64,
-#         (Ref{Int64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64},
-#                      Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64},
-#                      Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}),
-#         id, p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq, m1sq, m2sq, m3sq, m4sq, m5sq)
-#     imag(a) == 0.0 ? real(a) : a
-# end
-#
-# function E0i(id, xpi::Vector, xmi::Vector)
-#     a = ccall((:lte0ic2_, libLT), ComplexF64,
-#         (Ref{Int64}, Ref{Float64}, Ref{ComplexF64}),
-#         id, xpi, xmi)
-#     imag(a) == 0.0 ? real(a) : a
-# end
+function E0i(id, p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq,
+                 m1sq, m2sq, m3sq, m4sq, m5sq)
+    ccall((:lte0ic_, libLT), ComplexF64,
+        (Ref{Int64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64},
+                     Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64},
+                     Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}),
+        id, p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq, m1sq, m2sq, m3sq, m4sq, m5sq)
+end
 
-"""
-`E0(p1^2, p2^2, p3^2, p4^2, p5^2, (p1+p2)^2, (p2+p3)^2, (p3+p4)^2, (p4+p5)^2,
-(p5+p1)^2, m1^2, m2^2, m3^2, m4^2, m5^2)` or `E0(psq::Vector, msq::Vector)`
- or `E0(psq::Vector, pijsq::Vector, msq::Vector)`:
+function E0i(id, xpi::Vector{T}, xmi::Vector) where T<:Real
+    # ccall((:lte0ic2_, libLT), ComplexF64,
+    #     (Ref{Int64}, Ref{Float64}, Ref{ComplexF64}),
+    #     id, xpi, xmi)
+    return E0i(id, xpi..., xmi...)
+end
+
+@doc raw"""
+    E0(p1^2, p2^2, p3^2, p4^2, p5^2, (p1+p2)^2, (p2+p3)^2, (p3+p4)^2, (p4+p5)^2, (p5+p1)^2, m1^2, m2^2, m3^2, m4^2, m5^2)
+    E0(psq::Vector, msq::Vector)
+    E0(psq::Vector, pijsq::Vector, msq::Vector)
+
 the scalar five-point one-loop function
 
 ```math
-\\frac{μ^{4-D}}{iπ^{D/2} r_Γ} \\int
-\\frac{d^D q }{(q^2-m_1^2)\\left[(q+p_1)^2-m_2^2\\right]
-\\left[(q+p_1+p_2)^2-m_3^2\\right] \\left[(q+p_1+p_2+p_3)^2-m_4^2\\right]
-\\left[(q+p_1+p_2+p_3+p_4)^2-m_5^2\\right]}
-\\quad{\\rm with}\\quad r_Γ = \\frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
+\frac{μ^{4-D}}{iπ^{D/2} r_Γ} \int
+\frac{d^D q }{(q^2-m_1^2)\left[(q+p_1)^2-m_2^2\right]
+\left[(q+p_1+p_2)^2-m_3^2\right] \left[(q+p_1+p_2+p_3)^2-m_4^2\right]
+\left[(q+p_1+p_2+p_3+p_4)^2-m_5^2\right]}
+\quad{\rm with}\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
 ```
 """
 E0(p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq, m1sq, m2sq,
