@@ -8,7 +8,7 @@ const aa0 = 1; const aa00 = 4
 one-point tensor coefficient for `id`
 ```math
 \frac{μ^{4-D}}{iπ^{D/2} r_Γ} \int d^D q \frac{\{1, g_{μν} \} }{q^2-m^2}
-\quad{\rm with}\\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
+\quad{\rm with}\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
 ```
 
 Special cases:
