@@ -35,7 +35,6 @@ include("B.jl")
 include("C.jl")
 include("D.jl")
 include("E.jl")
-include("triangle.jl")
 
 include("ltexi.jl")
 
