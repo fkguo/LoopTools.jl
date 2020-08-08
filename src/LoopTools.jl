@@ -21,12 +21,14 @@ ee1123, ee1124, ee1133, ee1134, ee1144, ee1222, ee1223, ee1224, ee1233, ee1234, 
 ee1334, ee1344, ee1444, ee2222, ee2223, ee2224, ee2233, ee2234, ee2244, ee2333, ee2334, ee2344,
 ee2444, ee3333, ee3334, ee3344, ee3444, ee4444
 
-export I, IC0, libooptools
+export libooptools, ltexi
+
+export I, IC0
 
 using LoopTools_jll
 
-# const libLT = joinpath(dirname(@__FILE__), "libooptools.so")
-const libLT = libooptools
+include("init.jl")
+
 
 include("A.jl")
 include("B.jl")
@@ -35,5 +37,6 @@ include("D.jl")
 include("E.jl")
 include("triangle.jl")
 
+include("ltexi.jl")
 
 end # module

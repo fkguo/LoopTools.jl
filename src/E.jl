@@ -22,7 +22,6 @@ const ee3444 = 253; const ee4444 = 256
 
 @doc raw"""
     E0i(id, p1^2, p2^2, p3^2, p4^2, p5^2, (p1+p2)^2, (p2+p3)^2, (p3+p4)^2, (p4+p5)^2, (p5+p1)^2, m1^2, m2^2, m3^2, m4^2, m5^2)
-    E0i(id, psq::Vector, msq::Vector)
 
 five-point tensor coefficient for `id`
 
@@ -49,7 +48,7 @@ Special cases:
 function E0i(id, p1sq::Real, p2sq::Real, p3sq::Real, p4sq::Real, p5sq::Real, p12sq::Real,
         p23sq::Real, p34sq::Real, p45sq::Real, p51sq::Real, m1sq::Real, m2sq::Real,
         m3sq::Real, m4sq::Real, m5sq::Real)
-    ccall((:lte0i_, libLT), ComplexF64,
+    ccall((:e0i_, libooptools), ComplexF64,
         (Ref{Int64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64},
         Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64},
         Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}),
@@ -57,32 +56,31 @@ function E0i(id, p1sq::Real, p2sq::Real, p3sq::Real, p4sq::Real, p5sq::Real, p12
              p34sq,  p45sq,  p51sq,  m1sq,   m2sq,   m3sq,   m4sq,   m5sq)
 end
 
-function E0i(id, xpi::Vector{T}, xmi::Vector{T}) where T<:Real
-    ccall((:lte0i2_, libLT), ComplexF64,
-        (Ref{Int64}, Ref{Float64}, Ref{Float64}),
-         id,         xpi,  xmi)
-end
-
 function E0i(id, p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq,
                  m1sq, m2sq, m3sq, m4sq, m5sq)
-    ccall((:lte0ic_, libLT), ComplexF64,
+    ccall((:e0ic_, libooptools), ComplexF64,
         (Ref{Int64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64},
                      Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64},
                      Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}),
         id, p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq, m1sq, m2sq, m3sq, m4sq, m5sq)
 end
 
-function E0i(id, xpi::Vector{T}, xmi::Vector) where T<:Real
-    # ccall((:lte0ic2_, libLT), ComplexF64,
-    #     (Ref{Int64}, Ref{Float64}, Ref{ComplexF64}),
-    #     id, xpi, xmi)
-    return E0i(id, xpi..., xmi...)
-end
+# function E0i(id, xpi::Vector{T}, xmi::Vector{T}) where T<:Real
+#     ccall((:lte0i2_, libooptools), ComplexF64,
+#         (Ref{Int64}, Ref{Float64}, Ref{Float64}),
+#          id,         xpi,  xmi)
+# end
+#
+#
+# function E0i(id, xpi::Vector{T}, xmi::Vector) where T<:Real
+#     # ccall((:lte0ic2_, libooptools), ComplexF64,
+#     #     (Ref{Int64}, Ref{Float64}, Ref{ComplexF64}),
+#     #     id, xpi, xmi)
+#     return E0i(id, xpi..., xmi...)
+# end
 
 @doc raw"""
     E0(p1^2, p2^2, p3^2, p4^2, p5^2, (p1+p2)^2, (p2+p3)^2, (p3+p4)^2, (p4+p5)^2, (p5+p1)^2, m1^2, m2^2, m3^2, m4^2, m5^2)
-    E0(psq::Vector, msq::Vector)
-    E0(psq::Vector, pijsq::Vector, msq::Vector)
 
 the scalar five-point one-loop function
 
@@ -97,8 +95,8 @@ the scalar five-point one-loop function
 E0(p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq, m1sq, m2sq,
   m3sq, m4sq, m5sq) = E0i(ee0, p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq,
   p45sq, p51sq, m1sq, m2sq, m3sq, m4sq, m5sq)
-E0(xpi::Vector, xmi::Vector) = E0i(ee0, xpi, xmi)
-E0(xpi::Vector, xpij::Vector, xmi::Vector) = E0i(ee0, vcat(xpi,xpij), xmi)
+# E0(xpi::Vector, xmi::Vector) = E0i(ee0, xpi, xmi)
+# E0(xpi::Vector, xpij::Vector, xmi::Vector) = E0i(ee0, vcat(xpi,xpij), xmi)
 #
 # E0(xpi::Vector) = E0(xpi...)
 # E0(xpi::Vector, xmi::Vector) = E0(xpi..., xmi...)

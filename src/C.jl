@@ -7,7 +7,6 @@ const cc1111 = 52; const cc1112 = 55; const cc1122 = 58; const cc1222 = 61; cons
 
 @doc raw"""
     C0i(id, p1^2, p2^2, (p1+p2)^2, m1^2, m2^2, m3^2)
-    C0i(id, psq::Vector, msq::Vector)
 
 three-point tensor coefficient for `id`
 
@@ -33,32 +32,31 @@ Special cases:
 | `cc2222` | `64` | coefficient of ``p_{2μ} p_{2ν} p_{2ρ} p_{2σ}`` |
 """
 function C0i(id, p1sq::Real, p2sq::Real, p3sq::Real, m1sq::Real, m2sq::Real, m3sq::Real)
-    ccall((:ltc0i_, libLT), ComplexF64,
+    ccall((:c0i_, libooptools), ComplexF64,
         (Ref{Int64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}),
         id, p1sq, p2sq, p3sq, m1sq, m2sq, m3sq)
 end
 
 function C0i(id, p1sq, p2sq, p3sq, m1sq, m2sq, m3sq)
-    ccall((:ltc0ic_, libLT), ComplexF64,
+    ccall((:c0ic_, libooptools), ComplexF64,
         (Ref{Int64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}),
         id, p1sq, p2sq, p3sq, m1sq, m2sq, m3sq)
 end
 
-function C0i(id, xpi::Vector{T}, xmi::Vector{T}) where T<:Real
-    ccall((:ltc0i2_, libLT), ComplexF64,
-        (Ref{Int64}, Ref{Float64}, Ref{Float64}),
-         id,         xpi,  xmi)
-end
-
-function C0i(id, xpi::Vector, xmi::Vector)
-    ccall((:ltc0ic2_, libLT), ComplexF64,
-        (Ref{Int64}, Ref{ComplexF64}, Ref{ComplexF64}),
-         id,         complex.(xpi),  xmi)
-end
+# function C0i(id, xpi::Vector{T}, xmi::Vector{T}) where T<:Real
+#     ccall((:ltc0i2_, libooptools), ComplexF64,
+#         (Ref{Int64}, Ref{Float64}, Ref{Float64}),
+#          id,         xpi,  xmi)
+# end
+#
+# function C0i(id, xpi::Vector, xmi::Vector)
+#     ccall((:ltc0ic2_, libooptools), ComplexF64,
+#         (Ref{Int64}, Ref{ComplexF64}, Ref{ComplexF64}),
+#          id,         complex.(xpi),  xmi)
+# end
 
 @doc raw"""
     C0(p1^2, p2^2, (p1+p2)^2, m1^2, m2^2, m3^2)
-    C0(psq::Vector, msq::Vector)
 
 the scalar three-point one-loop function
 
@@ -70,5 +68,5 @@ the scalar three-point one-loop function
 ```
 """
 C0(p1sq, p2sq, p3sq, m1sq, m2sq, m3sq) = C0i(cc0, p1sq, p2sq, p3sq, m1sq, m2sq, m3sq)
-C0(xpi::Vector, xmi::Vector) = C0i(cc0, xpi, xmi)
+# C0(xpi::Vector, xmi::Vector) = C0i(cc0, xpi, xmi)
 # C0(xpi::Vector) = C0i(cc0, xpi...)

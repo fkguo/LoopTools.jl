@@ -19,14 +19,20 @@ Special cases:
 | `aa00` | `4` | coefficient of ``g_{μν}`` |
 
 """
-A0i(id, msq::Real) = ccall((:lta0i_, libLT), Float64,
+function A0i end
+# somehow here the returning type must be ComplexF64 is I use the original LoopTools_jll.
+# otherwise there would be a EXCEPTION_ACCESS_VIOLATION to crash julia
+function A0i(id, msq::Real)
+    _a0i = ccall((:a0i_, libooptools), ComplexF64,
         (Ref{Int64}, Ref{Float64}),
         id, msq)
+    return real(_a0i)  # we know this must be real
+end
+A0i(id, msq::Complex) = ccall((:a0ic_, libooptools), ComplexF64,
+    (Ref{Int64}, Ref{ComplexF64}),
+     id, msq)
 
 
-A0i(id, msq::Complex) = ccall((:a0ic_, libLT), ComplexF64,
-                (Ref{Int64}, Ref{ComplexF64}),
-                id, msq)
 
 """
     A0(m^2)
@@ -37,7 +43,7 @@ with ``r_Γ = \\dfrac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 """
 A0(msq::Real) = A0i(aa0, msq)
 
-A0(msq::ComplexF64) = ccall((:lta0c_, libLT), ComplexF64,
+A0(msq::ComplexF64) = ccall((:lta0c_, libooptools), ComplexF64,
         (Ref{ComplexF64},),
         msq)
 
@@ -48,6 +54,6 @@ all one-point tensor coefficients, only defined from real `m^2`
 """
 Aget(msq) = Dict(:aa0=>A0i(aa0, msq), :aa00=>A0i(aa00, msq) )
 #
-# Aget(msq) = ccall((:aget_, libLT), Ref{Vector{Float64}},
+# Aget(msq) = ccall((:aget_, libooptools), Ref{Vector{Float64}},
 #         (Ref{Float64}, ),
 #         msq)

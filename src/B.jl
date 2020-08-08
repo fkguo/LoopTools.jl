@@ -27,13 +27,13 @@ Special cases:
 | `bb111` | `16` | coefficient of ``p_μ p_ν p_ρ`` |
 """
 function B0i(id, psq::Real, m1sq::Real, m2sq::Real)
-    ccall((:ltb0i_, libLT), ComplexF64,
+    ccall((:b0i_, libooptools), ComplexF64,
         (Ref{Int64}, Ref{Float64}, Ref{Float64}, Ref{Float64}),
         id, psq, m1sq, m2sq)
 end
 
 function B0i(id, psq, m1sq, m2sq)
-    ccall((:ltb0ic_, libLT), ComplexF64,
+    ccall((:b0ic_, libooptools), ComplexF64,
         (Ref{Int64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}),
         id, psq, m1sq, m2sq)
 end
@@ -50,5 +50,5 @@ the scalar two-point one-loop function
 ```
 """
 B0(xpi, m1sq, m2sq) = B0i(bb0, xpi, m1sq, m2sq)
-B0(xpi::Vector) = B0(xpi...)
-B0(xpi::Vector, xmi::Vector) = B0(xpi..., xmi...)
+# B0(xpi::Vector) = B0(xpi...)
+# B0(xpi::Vector, xmi::Vector) = B0(xpi..., xmi...)

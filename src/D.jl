@@ -25,7 +25,6 @@ const dd22333 = 232; const dd23333 = 235; const dd33333 = 238
 
 @doc raw"""
     D0i(id, p1^2, p2^2, p3^2, p4^2, (p1+p2)^2, (p2+p3)^2, m1^2, m2^2, m3^2, m4^2)
-    D0i(id, psq::Vector, msq::Vector)
 
 four-point tensor coefficient for `id`
 
@@ -50,36 +49,34 @@ Special cases:
 """
 function D0i(id, p1sq::Real, p2sq::Real, p3sq::Real, p4sq::Real, p12sq::Real, p23sq::Real,
                  m1sq::Real, m2sq::Real, m3sq::Real, m4sq::Real)
-    ccall((:ltd0i_, libLT), ComplexF64,
+    ccall((:d0i_, libooptools), ComplexF64,
         (Ref{Int64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64},
         Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}),
          id,         p1sq,   p2sq,    p3sq,   p4sq,   p12sq,  p23sq,  m1sq,   m2sq,   m3sq,   m4sq)
 end
 
 function D0i(id, p1sq, p2sq, p3sq, p4sq, p12sq, p23sq, m1sq, m2sq, m3sq, m4sq)
-    ccall((:ltd0ic_, libLT), ComplexF64,
+    ccall((:d0ic_, libooptools), ComplexF64,
         (Ref{Int64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64},
                      Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}),
          id,         p1sq,   p2sq,    p3sq,   p4sq,   p12sq,  p23sq,  m1sq,   m2sq,   m3sq,   m4sq)
 end
-
-function D0i(id, xpi::Vector{T}, xmi::Vector{T}) where T<:Real
-    ccall((:ltd0i2_, libLT), ComplexF64,
-        (Ref{Int64}, Ref{Float64}, Ref{Float64}),
-         id,         xpi,  xmi)
-end
-
-function D0i(id, xpi::Vector, xmi::Vector)
-    ccall((:ltd0ic2_, libLT), ComplexF64,
-        (Ref{Int64}, Ref{ComplexF64}, Ref{ComplexF64}),
-         id,         complex.(xpi),  xmi)
-end
+#
+# function D0i(id, xpi::Vector{T}, xmi::Vector{T}) where T<:Real
+#     ccall((:ltd0i2_, libooptools), ComplexF64,
+#         (Ref{Int64}, Ref{Float64}, Ref{Float64}),
+#          id,         xpi,  xmi)
+# end
+#
+# function D0i(id, xpi::Vector, xmi::Vector)
+#     ccall((:ltd0ic2_, libooptools), ComplexF64,
+#         (Ref{Int64}, Ref{ComplexF64}, Ref{ComplexF64}),
+#          id,         complex.(xpi),  xmi)
+# end
 
 
 @doc raw"""
     D0(p1^2, p2^2, p3^2, p4^2, (p1+p2)^2, (p2+p3)^2, m1^2, m2^2, m3^2, m4^2)
-    D0(psq::Vector, msq::Vector)
-    D0(psq::Vector, pijsq::Vector, msq::Vector)
 
 the scalar four-point one-loop function
 
@@ -90,7 +87,7 @@ the scalar four-point one-loop function
 \quad{\rm with}\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
 ```
 """
-D0(xpi::Vector, xmi::Vector) = D0i(dd0, xpi, xmi)
 D0(p1sq, p2sq, p3sq, p4sq, p12sq, p23sq, m1sq, m2sq, m3sq, m4sq) = D0i(dd0,
     p1sq, p2sq, p3sq, p4sq, p12sq, p23sq, m1sq, m2sq, m3sq, m4sq)
-D0(xpi::Vector, xpij::Vector, xmi::Vector) = D0(vcat(xpi, xpij), xmi)
+# D0(xpi::Vector, xmi::Vector) = D0i(dd0, xpi, xmi)
+# D0(xpi::Vector, xpij::Vector, xmi::Vector) = D0(vcat(xpi, xpij), xmi)
