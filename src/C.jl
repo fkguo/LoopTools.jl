@@ -57,7 +57,8 @@ function C0i(id, xpi::Vector, xmi::Vector)
 end
 
 @doc raw"""
-    C0(p1^2, p2^2, (p1+p2)^2, m1^2, m2^2, m3^2)` or `C0(psq::Vector, msq::Vector)
+    C0(p1^2, p2^2, (p1+p2)^2, m1^2, m2^2, m3^2)
+    C0(psq::Vector, msq::Vector)
 
 the scalar three-point one-loop function
 
