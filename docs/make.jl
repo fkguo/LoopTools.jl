@@ -18,4 +18,7 @@ makedocs(;
 
 deploydocs(;
     repo="github.com/fkguo/LoopTools.jl",
+    target = "build",
+    deps = nothing,
+    make = nothing
 )
