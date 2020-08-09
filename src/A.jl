@@ -8,8 +8,8 @@ const aa0 = 1; const aa00 = 4
 one-point tensor coefficient for `id`
 ```math
 \frac{μ^{4-D}}{iπ^{D/2} r_Γ} \int d^D q \frac{\{1, g_{μν} \} }{q^2-m^2}
-\quad{\rm with}\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
 ```
+with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε```.
 
 Special cases:
 
@@ -34,12 +34,14 @@ A0i(id, msq::Complex) = ccall((:a0ic_, libooptools), ComplexF64,
 
 
 
-"""
+@doc raw"""
     A0(m^2)
 
 the scalar one-point one-loop function
-``\\dfrac{μ^{4-D}}{iπ^{D/2} r_Γ} \\int d^D q \\dfrac{1}{q^2-m^2}``
-with ``r_Γ = \\dfrac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
+```math`
+\dfrac{μ^{4-D}}{iπ^{D/2} r_Γ} \int d^D q \dfrac{1}{q^2-m^2}
+````
+with ``r_Γ = \dfrac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 """
 A0(msq::Real) = A0i(aa0, msq)
 

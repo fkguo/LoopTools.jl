@@ -32,8 +32,8 @@ four-point tensor coefficient for `id`
 \frac{μ^{4-D}}{iπ^{D/2} r_Γ} \int
 \frac{({\rm numerator})\, d^D q }{(q^2-m_1^2)\left[(q+p_1)^2-m_2^2\right]
 \left[(q+p_1+p_2)^2-m_3^2\right] \left[(q+p_1+p_2+p_3)^2-m_4^2\right]}
-\quad{\rm with}\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
 ```
+with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 
 Special cases:
 
@@ -44,7 +44,7 @@ Special cases:
 | `dd2` | `7` | coefficient of ``p_{2μ}`` |
 | `dd3` | `10` | coefficient of ``p_{3μ}`` |
 | `dd00` | `13` | coefficient of ``g_{μν}`` |
-| ``\\cdots`` | ``\\cdots`` |  ``\\cdots`` |
+| `...` | `...` |  `...` |
 | `dd33333` | `238` | coefficient of ``p_{3μ} p_{3ν} p_{3ρ} p_{3σ} p_{3λ}`` |
 """
 function D0i(id, p1sq::Real, p2sq::Real, p3sq::Real, p4sq::Real, p12sq::Real, p23sq::Real,
@@ -84,8 +84,8 @@ the scalar four-point one-loop function
 \frac{μ^{4-D}}{iπ^{D/2} r_Γ} \int
 \frac{d^D q }{(q^2-m_1^2)\left[(q+p_1)^2-m_2^2\right]
 \left[(q+p_1+p_2)^2-m_3^2\right] \left[(q+p_1+p_2+p_3)^2-m_4^2\right]}
-\quad{\rm with}\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
 ```
+with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 """
 D0(p1sq, p2sq, p3sq, p4sq, p12sq, p23sq, m1sq, m2sq, m3sq, m4sq) = D0i(dd0,
     p1sq, p2sq, p3sq, p4sq, p12sq, p23sq, m1sq, m2sq, m3sq, m4sq)

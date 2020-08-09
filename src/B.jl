@@ -12,8 +12,8 @@ two-point tensor coefficient for `id`
 ```math
 \frac{μ^{4-D}}{iπ^{D/2} r_Γ} \int
 \frac{({\rm numerator})\, d^D q }{(q^2-m_1^2)\left[(q+p)^2-m_2^2\right]}
-\quad{\rm with}\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
 ```
+with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 
 Special cases:
 
@@ -46,8 +46,8 @@ the scalar two-point one-loop function
 ```math
 \frac{μ^{4-D}}{iπ^{D/2} r_Γ} \int
 \frac{d^D q }{(q^2-m_1^2)\left[(q+p)^2-m_2^2\right]}
-\quad{\rm with}\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
 ```
+with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 """
 B0(xpi, m1sq, m2sq) = B0i(bb0, xpi, m1sq, m2sq)
 # B0(xpi::Vector) = B0(xpi...)

@@ -30,8 +30,8 @@ five-point tensor coefficient for `id`
 \frac{({\rm numerator})\, d^D q }{(q^2-m_1^2)\left[(q+p_1)^2-m_2^2\right]
 \left[(q+p_1+p_2)^2-m_3^2\right] \left[(q+p_1+p_2+p_3)^2-m_4^2\right]
  \left[(q+p_1+p_2+p_3+p_4)^2-m_5^2\right]}
-\quad{\rm with}\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
 ```
+with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 
 Special cases:
 
@@ -42,7 +42,7 @@ Special cases:
 | `ee2` | `7` | coefficient of ``p_{2μ}`` |
 | `ee3` | `10` | coefficient of ``p_{3μ}`` |
 | `ee00` | `13` | coefficient of ``g_{μν}`` |
-| ``\\cdots`` | ``\\cdots`` |  ``\\cdots`` |
+| `...` | `...` |  `...` |
 | `ee4444` | `256` | coefficient of ``p_{4μ} p_{4ν} p_{4ρ} p_{4σ}`` |
 """
 function E0i(id, p1sq::Real, p2sq::Real, p3sq::Real, p4sq::Real, p5sq::Real, p12sq::Real,
@@ -89,8 +89,8 @@ the scalar five-point one-loop function
 \frac{d^D q }{(q^2-m_1^2)\left[(q+p_1)^2-m_2^2\right]
 \left[(q+p_1+p_2)^2-m_3^2\right] \left[(q+p_1+p_2+p_3)^2-m_4^2\right]
 \left[(q+p_1+p_2+p_3+p_4)^2-m_5^2\right]}
-\quad{\rm with}\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
 ```
+with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 """
 E0(p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq, m1sq, m2sq,
   m3sq, m4sq, m5sq) = E0i(ee0, p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq,

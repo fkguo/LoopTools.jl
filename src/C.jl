@@ -14,8 +14,8 @@ three-point tensor coefficient for `id`
 \frac{μ^{4-D}}{iπ^{D/2} r_Γ} \int
 \frac{({\rm numerator})\, d^D q }{(q^2-m_1^2)\left[(q+p_1)^2-m_2^2\right]
 \left[(q+p_1+p_2)^2-m_3^2\right]}
-\quad{\rm with}\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
 ```
+with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 
 Special cases:
 
@@ -28,7 +28,7 @@ Special cases:
 | `cc11` | `13` | coefficient of ``p_{1μ} p_{1ν}`` |
 | `cc12` | `16` | coefficient of ``p_{1μ} p_{2ν}`` |
 | `cc22` | `19` | coefficient of ``p_{2μ} p_{2ν}`` |
-| ``\\cdots`` | ``\\cdots`` |  ``\\cdots`` |
+| `...` | `...` |  `...` |
 | `cc2222` | `64` | coefficient of ``p_{2μ} p_{2ν} p_{2ρ} p_{2σ}`` |
 """
 function C0i(id, p1sq::Real, p2sq::Real, p3sq::Real, m1sq::Real, m2sq::Real, m3sq::Real)
@@ -64,8 +64,8 @@ the scalar three-point one-loop function
 \frac{μ^{4-D}}{iπ^{D/2} r_Γ} \int
 \frac{d^D q }{(q^2-m_1^2)\left[(q+p_1)^2-m_2^2\right]
 \left[(q+p_1+p_2)^2-m_3^2\right]}
-\quad{\rm with}\quad r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)},~D=4-2ε.
 ```
+with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 """
 C0(p1sq, p2sq, p3sq, m1sq, m2sq, m3sq) = C0i(cc0, p1sq, p2sq, p3sq, m1sq, m2sq, m3sq)
 # C0(xpi::Vector, xmi::Vector) = C0i(cc0, xpi, xmi)
