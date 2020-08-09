@@ -8,7 +8,6 @@ For more information about the loop integrals, see the [`LoopTools` manual](http
 
 
 ```@index
-Pages = ["A.md", "B.md", "C.md", "D.md", "E.md"]
 ```
 
 ```@autodocs

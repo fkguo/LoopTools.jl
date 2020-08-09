@@ -47,13 +47,13 @@ A0(msq::ComplexF64) = ccall((:lta0c_, libooptools), ComplexF64,
         (Ref{ComplexF64},),
         msq)
 
-"""
-    Aget(m^2)
+# """
+#     Aget(m^2)
 
-all one-point tensor coefficients, only defined from real `m^2`
-"""
-Aget(msq) = Dict(:aa0=>A0i(aa0, msq), :aa00=>A0i(aa00, msq) )
-#
-# Aget(msq) = ccall((:aget_, libooptools), Ref{Vector{Float64}},
-#         (Ref{Float64}, ),
-#         msq)
+# all one-point tensor coefficients
+# """
+# Aget(msq) = Dict(:aa0=>A0i(aa0, msq), :aa00=>A0i(aa00, msq) )
+# #
+# # Aget(msq) = ccall((:aget_, libooptools), Ref{Vector{Float64}},
+# #         (Ref{Float64}, ),
+# #         msq)
