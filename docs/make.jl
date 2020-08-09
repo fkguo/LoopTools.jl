@@ -1,12 +1,4 @@
-using Documenter
-
-if haskey(ENV, "GITHUB_ACTIONS")
-    ENV["JULIA_DEBUG"] = "Documenter"
-end
-
-Documenter.post_status(; type="pending", repo="github.com/fkguo/LoopTools.jl.git")
-
-using LoopTools
+using Documenter, LoopTools
 
 makedocs(;
     modules=[LoopTools],
@@ -25,5 +17,9 @@ makedocs(;
 
 deploydocs(;
     repo="github.com/fkguo/LoopTools.jl.git",
+    target = "build",
+    deps = nothing,
+    make = nothing,
+    branch = "gh-pages"
     # push_preview=true,
 )
