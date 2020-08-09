@@ -17,5 +17,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/fkguo/LoopTools.jl"
+    repo="github.com/fkguo/LoopTools.jl.git",
+    push_preview=true,
 )

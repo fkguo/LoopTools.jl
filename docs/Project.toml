@@ -1,3 +1,4 @@
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+LoopTools = "928ab408-997d-4a59-a6b5-2799fca5a421"
 LoopTools_jll = "e275ce21-2bb6-5a50-939e-e917944b1aed"

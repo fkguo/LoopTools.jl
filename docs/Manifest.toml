@@ -3,6 +3,12 @@
 [[Base64]]
 uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 
+[[CompilerSupportLibraries_jll]]
+deps = ["Libdl", "Pkg"]
+git-tree-sha1 = "7c4f882c41faa72118841185afc58a2eb00ef612"
+uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
+version = "0.3.3+0"
+
 [[Dates]]
 deps = ["Printf"]
 uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
@@ -44,9 +50,16 @@ uuid = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
 uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
 
 [[LoopTools]]
-path = ".."
+deps = ["LoopTools_jll"]
+path = "C:\\Users\\fkguo\\Documents\\Seafile\\coding\\LoopTools"
 uuid = "928ab408-997d-4a59-a6b5-2799fca5a421"
 version = "0.1.0"
+
+[[LoopTools_jll]]
+deps = ["CompilerSupportLibraries_jll", "Libdl", "Pkg"]
+git-tree-sha1 = "d9154a83847dc231ca7986125bb0ea32e98a694c"
+uuid = "e275ce21-2bb6-5a50-939e-e917944b1aed"
+version = "2.15.0+0"
 
 [[Markdown]]
 deps = ["Base64"]
