@@ -31,6 +31,7 @@ five-point tensor coefficient for `id`
 \left[(q+p_1+p_2)^2-m_3^2\right] \left[(q+p_1+p_2+p_3)^2-m_4^2\right]
  \left[(q+p_1+p_2+p_3+p_4)^2-m_5^2\right]}
 ```
+
 with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 
 Special cases:
@@ -90,6 +91,7 @@ the scalar five-point one-loop function
 \left[(q+p_1+p_2)^2-m_3^2\right] \left[(q+p_1+p_2+p_3)^2-m_4^2\right]
 \left[(q+p_1+p_2+p_3+p_4)^2-m_5^2\right]}
 ```
+
 with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 """
 E0(p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq, m1sq, m2sq,

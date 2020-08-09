@@ -9,6 +9,7 @@ one-point tensor coefficient for `id`
 ```math
 \frac{μ^{4-D}}{iπ^{D/2} r_Γ} \int d^D q \frac{\{1, g_{μν} \} }{q^2-m^2}
 ```
+
 with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε```.
 
 Special cases:
@@ -41,6 +42,7 @@ the scalar one-point one-loop function
 ```math`
 \dfrac{μ^{4-D}}{iπ^{D/2} r_Γ} \int d^D q \dfrac{1}{q^2-m^2}
 ````
+
 with ``r_Γ = \dfrac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 """
 A0(msq::Real) = A0i(aa0, msq)

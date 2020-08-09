@@ -15,6 +15,7 @@ three-point tensor coefficient for `id`
 \frac{({\rm numerator})\, d^D q }{(q^2-m_1^2)\left[(q+p_1)^2-m_2^2\right]
 \left[(q+p_1+p_2)^2-m_3^2\right]}
 ```
+
 with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 
 Special cases:
@@ -65,6 +66,7 @@ the scalar three-point one-loop function
 \frac{d^D q }{(q^2-m_1^2)\left[(q+p_1)^2-m_2^2\right]
 \left[(q+p_1+p_2)^2-m_3^2\right]}
 ```
+
 with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 """
 C0(p1sq, p2sq, p3sq, m1sq, m2sq, m3sq) = C0i(cc0, p1sq, p2sq, p3sq, m1sq, m2sq, m3sq)

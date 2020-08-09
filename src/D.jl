@@ -33,6 +33,7 @@ four-point tensor coefficient for `id`
 \frac{({\rm numerator})\, d^D q }{(q^2-m_1^2)\left[(q+p_1)^2-m_2^2\right]
 \left[(q+p_1+p_2)^2-m_3^2\right] \left[(q+p_1+p_2+p_3)^2-m_4^2\right]}
 ```
+
 with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 
 Special cases:
@@ -85,6 +86,7 @@ the scalar four-point one-loop function
 \frac{d^D q }{(q^2-m_1^2)\left[(q+p_1)^2-m_2^2\right]
 \left[(q+p_1+p_2)^2-m_3^2\right] \left[(q+p_1+p_2+p_3)^2-m_4^2\right]}
 ```
+
 with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 """
 D0(p1sq, p2sq, p3sq, p4sq, p12sq, p23sq, m1sq, m2sq, m3sq, m4sq) = D0i(dd0,
