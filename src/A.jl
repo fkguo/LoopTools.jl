@@ -48,18 +48,30 @@ the scalar one-point one-loop function
 with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 """
 A0(msq::Real) = A0i(aa0, msq)
+# ccall((:a0_, libooptools), ComplexF64, (Ref{Float64},), msq)
 
-A0(msq::ComplexF64) = ccall((:lta0c_, libooptools), ComplexF64,
+A0(msq::ComplexF64) = ccall((:a0c_, libooptools), ComplexF64,
         (Ref{ComplexF64},),
         msq)
 
-# """
-#     Aget(m^2)
+A00(msq) = A0i(aa00, msq)
 
-# all one-point tensor coefficients
-# """
-# Aget(msq) = Dict(:aa0=>A0i(aa0, msq), :aa00=>A0i(aa00, msq) )
-# #
-# # Aget(msq) = ccall((:aget_, libooptools), Ref{Vector{Float64}},
-# #         (Ref{Float64}, ),
-# #         msq)
+"""
+    Aget(m^2)
+
+all one-point tensor coefficients.
+"""
+Aget(msq) = NamedTuple{(:aa0, :aa00)}((A0i(aa0, msq), A0i(aa00, msq)) )
+# in the fortran code, the type of aget is memindex (int*8)
+# Aget(msq) = ccall((:aget_, libooptools), Int64, #Tuple{Float64,Float64}, 
+#         (Ref{Float64}, ),
+#         msq)
+
+
+# # the following code somehow only returns the first element...
+# function Aput!(res, msq) 
+#     ccall((:aput_, libooptools), Cvoid, 
+#         (Ptr{Vector{Float64}}, Ref{Float64}),
+#         res, msq)
+#     res
+# end

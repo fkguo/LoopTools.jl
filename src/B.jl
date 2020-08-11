@@ -4,6 +4,9 @@ const bb11 = 10; const bb001 = 13; const bb111 = 16
 const dbb0 = 19; const dbb1 = 22; const dbb00 = 25;
 const dbb11 = 28; const dbb001 = 31
 
+const bcof = (:bb0, :bb1, :bb00, :bb11, :bb001, :bb111, :dbb0, :dbb1, 
+              :dbb00, :dbb11, :dbb001)
+
 @doc raw"""
     B0i(id, p^2, m1^2, m2^2)
 
@@ -26,6 +29,8 @@ Special cases:
 | `bb11`  (`dbb11`)  | `10` (`28`) | (derivative of) coefficient of ``p_μ p_ν`` |
 | `bb001` (`dbb001`)  | `13` (`31`) | (derivative of) coefficient of ``g_{μν}p_ρ`` |
 | `bb111` | `16` | coefficient of ``p_μ p_ν p_ρ`` |
+
+Functions `B0`, `B1`, `B00`, `B11`, `B001` and `B111` are defined.
 """
 function B0i(id, psq::Real, m1sq::Real, m2sq::Real)
     ccall((:b0i_, libooptools), ComplexF64,
@@ -50,7 +55,43 @@ the scalar two-point one-loop function
 ```
 
 with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
+""" B0
+
+"Coefficients of two-point tensor loop integral. See `B0i`." B00, B11, B001, B111
+
+for f in (:B0, :B1, :B00, :B11, :B001, :B111)
+    ff = lowercase(string("$(f)_"))
+    @eval function ($f)(psq::Real, m1sq::Real, m2sq::Real)
+        ccall(($ff, libooptools), ComplexF64,
+        (Ref{Float64}, Ref{Float64}, Ref{Float64}),
+        psq, m1sq, m2sq)
+    end
+end
+
+for f in (:B0, :B1, :B00, :B11, :B001, :B111)
+    ff = lowercase(string("$(f)c_"))
+    @eval function ($f)(psq, m1sq, m2sq)
+        ccall(($ff, libooptools), ComplexF64,
+        (Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}),
+        psq, m1sq, m2sq)
+    end
+end
+
 """
-B0(xpi, m1sq, m2sq) = B0i(bb0, xpi, m1sq, m2sq)
-# B0(xpi::Vector) = B0(xpi...)
-# B0(xpi::Vector, xmi::Vector) = B0(xpi..., xmi...)
+    Bget(psq, m1sq, m2sq)
+
+return a `NamedTuple` of all two-point coefficients.
+""" Bget
+let _str_ = join(["B0i($i, psq, m1sq, m2sq)," for i in bcof])
+    Meta.parse(string("Bget(psq, m1sq, m2sq) = NamedTuple{bcof}((", _str_[1:end-1], "))")) |> eval 
+end
+
+# much shorter using metaprogramming as above
+# function Bget(psq, m1sq, m2sq)
+#     NamedTuple{bcof}(
+#         (B0i(bb0, psq, m1sq, m2sq), B0i(bb1, psq, m1sq, m2sq), B0i(bb00, psq, m1sq, m2sq), 
+#         B0i(bb11, psq, m1sq, m2sq), B0i(bb001, psq, m1sq, m2sq), B0i(bb111, psq, m1sq, m2sq), 
+#         B0i(dbb0, psq, m1sq, m2sq), B0i(dbb1, psq, m1sq, m2sq), B0i(dbb00, psq, m1sq, m2sq), 
+#         B0i(dbb11, psq, m1sq, m2sq), B0i(dbb001, psq, m1sq, m2sq) ) 
+#     )
+# end

@@ -1,6 +1,8 @@
 module LoopTools
 
-export A0, A0i, B0, B0i, C0, C0i, D0, D0i, E0, E0i #, Aget
+export A0, A0i, A00, Aget,
+       B0, B0i, B1, B00, B11, B001, B111, Bget,
+       C0, C0i, Cget, D0, D0i, Dget, E0, E0i, Eget
 export aa0, bb0, bb1, bb00, bb11, bb001, bb111
 export dbb0, dbb1, dbb00, dbb11, dbb001
 export cc0, cc1, cc2, cc00, cc11, cc12, cc22, cc001, cc002, cc111, cc112, cc122
@@ -21,7 +23,13 @@ ee1123, ee1124, ee1133, ee1134, ee1144, ee1222, ee1223, ee1224, ee1233, ee1234, 
 ee1334, ee1344, ee1444, ee2222, ee2223, ee2224, ee2233, ee2234, ee2244, ee2333, ee2334, ee2344,
 ee2444, ee3333, ee3334, ee3344, ee3444, ee4444
 
-export libooptools, ltexi
+export libooptools
+
+export ltexi, clearcache, markcache, restorecache, getcmpbits, setcmpbits,
+       getversionkey, setversionkey, getdebugkey, setdebugkey, getmaxdev, setmaxdev, 
+       setdebugrange, getwarndigits, setwarndigits, geterrdigits, seterrdigits, getdelta, 
+       setdelta, getmudim, setmudim, getlambda, setlambda, getminmass, setminmass, setuvdiv,
+       getzeroeps, setzeroeps, setdiffeps, getepsi
 
 export I, IC0
 
@@ -36,6 +44,6 @@ include("C.jl")
 include("D.jl")
 include("E.jl")
 
-include("ltexi.jl")
+include("utils.jl")
 
 end # module

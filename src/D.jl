@@ -23,6 +23,17 @@ const dd12223 = 211; const dd12233 = 214; const dd12333 = 217;
 const dd13333 = 220; const dd22222 = 223; const dd22223 = 226; const dd22233 = 229;
 const dd22333 = 232; const dd23333 = 235; const dd33333 = 238
 
+const dcof = (:dd0, :dd1, :dd2, :dd3, :dd00, :dd11, :dd12, :dd13, :dd22, :dd23,
+    :dd33, :dd001, :dd002, :dd003, :dd111, :dd112, :dd113, :dd122, :dd123, :dd133, 
+    :dd222, :dd223, :dd233, :dd333, :dd0000, :dd0011, :dd0012, :dd0013, :dd0022,
+    :dd0023, :dd0033, :dd1111, :dd1112, :dd1113, :dd1122, :dd1123, :dd1133, :dd1222, 
+    :dd1223, :dd1233, :dd1333, :dd2222, :dd2223, :dd2233, :dd2333, :dd3333, :dd00001,
+    :dd00002, :dd00003, :dd00111, :dd00112, :dd00113, :dd00122, 
+    :dd00123, :dd00133, :dd00222, :dd00223, :dd00233, :dd00333, :dd11111,        
+    :dd11112, :dd11113, :dd11122, :dd11123, :dd11133, :dd11222, :dd11223,
+    :dd11233, :dd11333, :dd12222, :dd12223, :dd12233, :dd12333,        
+    :dd13333, :dd22222, :dd22223, :dd22233, :dd22333, :dd23333, :dd33333)
+
 @doc raw"""
     D0i(id, p1^2, p2^2, p3^2, p4^2, (p1+p2)^2, (p2+p3)^2, m1^2, m2^2, m3^2, m4^2)
 
@@ -62,18 +73,6 @@ function D0i(id, p1sq, p2sq, p3sq, p4sq, p12sq, p23sq, m1sq, m2sq, m3sq, m4sq)
                      Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}),
          id,         p1sq,   p2sq,    p3sq,   p4sq,   p12sq,  p23sq,  m1sq,   m2sq,   m3sq,   m4sq)
 end
-#
-# function D0i(id, xpi::Vector{T}, xmi::Vector{T}) where T<:Real
-#     ccall((:ltd0i2_, libooptools), ComplexF64,
-#         (Ref{Int64}, Ref{Float64}, Ref{Float64}),
-#          id,         xpi,  xmi)
-# end
-#
-# function D0i(id, xpi::Vector, xmi::Vector)
-#     ccall((:ltd0ic2_, libooptools), ComplexF64,
-#         (Ref{Int64}, Ref{ComplexF64}, Ref{ComplexF64}),
-#          id,         complex.(xpi),  xmi)
-# end
 
 
 @doc raw"""
@@ -91,5 +90,14 @@ with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 """
 D0(p1sq, p2sq, p3sq, p4sq, p12sq, p23sq, m1sq, m2sq, m3sq, m4sq) = D0i(dd0,
     p1sq, p2sq, p3sq, p4sq, p12sq, p23sq, m1sq, m2sq, m3sq, m4sq)
-# D0(xpi::Vector, xmi::Vector) = D0i(dd0, xpi, xmi)
-# D0(xpi::Vector, xpij::Vector, xmi::Vector) = D0(vcat(xpi, xpij), xmi)
+
+    
+"""
+    Dget(p1^2, p2^2, p3^2, p4^2, (p1+p2)^2, (p2+p3)^2, m1^2, m2^2, m3^2, m4^2)
+
+return a `NamedTuple` of all four-point coefficients.
+""" Dget
+let _str_ = join(["D0i($i, p1,p2,p3,p4,p12,p23,m1,m2,m3,m4)," for i in dcof])
+    Meta.parse(string("Dget(p1,p2,p3,p4,p12,p23,m1,m2,m3,m4) = NamedTuple{dcof}((", 
+               _str_[1:end-1], "))") ) |> eval 
+end

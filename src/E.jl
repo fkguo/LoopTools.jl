@@ -20,6 +20,18 @@ const ee2244 = 229; const ee2333 = 232; const ee2334 = 235; const ee2344 = 238;
 const ee2444 = 241; const ee3333 = 244; const ee3334 = 247; const ee3344 = 250;
 const ee3444 = 253; const ee4444 = 256
 
+const ecof = (:ee0, :ee1, :ee2, :ee3, :ee4, :ee00, :ee11, :ee12, :ee13, :ee14,
+    :ee22, :ee23, :ee24, :ee33, :ee34, :ee44, :ee001, :ee002, :ee003, :ee004,
+    :ee111, :ee112, :ee113, :ee114, :ee122, :ee123, :ee124, :ee133, :ee134, :ee144,
+    :ee222, :ee223, :ee224, :ee233, :ee234, :ee244, :ee333, :ee334, :ee344, :ee444,
+    :ee0000, :ee0011, :ee0012, :ee0013, :ee0014, :ee0022, :ee0023, :ee0024,
+    :ee0033, :ee0034, :ee0044, :ee1111, :ee1112, :ee1113, :ee1114, :ee1122,
+    :ee1123, :ee1124, :ee1133, :ee1134, :ee1144, :ee1222, :ee1223, :ee1224,
+    :ee1233, :ee1234, :ee1244, :ee1333, :ee1334, :ee1344, :ee1444, :ee2222,
+    :ee2223, :ee2224, :ee2233, :ee2234, :ee2244, :ee2333, :ee2334, :ee2344,
+    :ee2444, :ee3333, :ee3334, :ee3344, :ee3444, :ee4444 )
+
+
 @doc raw"""
     E0i(id, p1^2, p2^2, p3^2, p4^2, p5^2, (p1+p2)^2, (p2+p3)^2, (p3+p4)^2, (p4+p5)^2, (p5+p1)^2, m1^2, m2^2, m3^2, m4^2, m5^2)
 
@@ -66,19 +78,7 @@ function E0i(id, p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq
         id, p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq, m1sq, m2sq, m3sq, m4sq, m5sq)
 end
 
-# function E0i(id, xpi::Vector{T}, xmi::Vector{T}) where T<:Real
-#     ccall((:lte0i2_, libooptools), ComplexF64,
-#         (Ref{Int64}, Ref{Float64}, Ref{Float64}),
-#          id,         xpi,  xmi)
-# end
-#
-#
-# function E0i(id, xpi::Vector{T}, xmi::Vector) where T<:Real
-#     # ccall((:lte0ic2_, libooptools), ComplexF64,
-#     #     (Ref{Int64}, Ref{Float64}, Ref{ComplexF64}),
-#     #     id, xpi, xmi)
-#     return E0i(id, xpi..., xmi...)
-# end
+
 
 @doc raw"""
     E0(p1^2, p2^2, p3^2, p4^2, p5^2, (p1+p2)^2, (p2+p3)^2, (p3+p4)^2, (p4+p5)^2, (p5+p1)^2, m1^2, m2^2, m3^2, m4^2, m5^2)
@@ -97,11 +97,14 @@ with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 E0(p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq, m1sq, m2sq,
   m3sq, m4sq, m5sq) = E0i(ee0, p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq,
   p45sq, p51sq, m1sq, m2sq, m3sq, m4sq, m5sq)
-# E0(xpi::Vector, xmi::Vector) = E0i(ee0, xpi, xmi)
-# E0(xpi::Vector, xpij::Vector, xmi::Vector) = E0i(ee0, vcat(xpi,xpij), xmi)
-#
-# E0(xpi::Vector) = E0(xpi...)
-# E0(xpi::Vector, xmi::Vector) = E0(xpi..., xmi...)
-# E0(xpi::Vector, xpij::Vector, xmi::Vector) = E0(xpi..., xpij..., xmi...)
-# E0(p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq, xmi::Vector) = E0(p1sq, p2sq,
-#    p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq, xmi...)
+
+   
+"""
+    Eget(p1^2, p2^2, p3^2, p4^2, p5^2, (p1+p2)^2, (p2+p3)^2, (p3+p4)^2, (p4+p5)^2, (p5+p1)^2, m1^2, m2^2, m3^2, m4^2, m5^2)
+
+return a `NamedTuple` of all five-point coefficients.
+""" Eget
+let _str_ = join(["E0i($i, p1,p2,p3,p4,p5,p12,p23,p34,p45,p51,m1,m2,m3,m4,m5)," for i in ecof])
+    Meta.parse(string("Eget(p1,p2,p3,p4,p5,p12,p23,p34,p45,p51,m1,m2,m3,m4,m5) = NamedTuple{ecof}((", 
+               _str_[1:end-1], "))") ) |> eval 
+end
