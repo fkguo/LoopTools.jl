@@ -57,9 +57,9 @@ the scalar two-point one-loop function
 with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 """ B0
 
-"Coefficients of two-point tensor loop integral. See `B0i`." B00, B11, B001, B111
+"Coefficients of two-point tensor loop integral. See `B0i`." B00, B11, B001, B111, DB0, DB1, DB00, DB11
 
-for f in (:B0, :B1, :B00, :B11, :B001, :B111)
+for f in (:B0, :B1, :B00, :B11, :B001, :B111, :DB0, :DB1, :DB00, :DB11)
     ff = lowercase(string("$(f)_"))
     @eval function ($f)(psq::Real, m1sq::Real, m2sq::Real)
         ccall(($ff, libooptools), ComplexF64,
@@ -68,7 +68,7 @@ for f in (:B0, :B1, :B00, :B11, :B001, :B111)
     end
 end
 
-for f in (:B0, :B1, :B00, :B11, :B001, :B111)
+for f in (:B0, :B1, :B00, :B11, :B001, :B111, :DB0, :DB1, :DB00, :DB11)
     ff = lowercase(string("$(f)c_"))
     @eval function ($f)(psq, m1sq, m2sq)
         ccall(($ff, libooptools), ComplexF64,

@@ -1,7 +1,7 @@
 module LoopTools
 
 export A0, A0i, A00, Aget,
-       B0, B0i, B1, B00, B11, B001, B111, Bget,
+       B0, B0i, B1, B00, B11, B001, B111, DB0, DB1, DB00, DB11, Bget,
        C0, C0i, Cget, D0, D0i, Dget, E0, E0i, Eget
 export aa0, bb0, bb1, bb00, bb11, bb001, bb111
 export dbb0, dbb1, dbb00, dbb11, dbb001

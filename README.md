@@ -5,6 +5,6 @@
 [![Build Status](https://github.com/fkguo/LoopTools.jl/workflows/CI/badge.svg)](https://github.com/fkguo/LoopTools.jl/actions)
 
 
-This is a julia wrapper of selected functions in the [LoopTools package](http://www.feynarts.de/looptools/) for computing one-loop integrals.
+This is a julia wrapper of functions in the [LoopTools package](http://www.feynarts.de/looptools/) for computing one-loop integrals.
 
 Install by `] add https://github.com/fkguo/LoopTools.jl.git`.

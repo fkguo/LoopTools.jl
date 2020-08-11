@@ -2,3 +2,5 @@
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 LoopTools = "928ab408-997d-4a59-a6b5-2799fca5a421"
 LoopTools_jll = "e275ce21-2bb6-5a50-939e-e917944b1aed"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+PrettyPrinting = "54e16d92-306c-5ea0-a30b-337be88ac337"
