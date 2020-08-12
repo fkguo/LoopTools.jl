@@ -52,12 +52,16 @@ Special cases:
 | `id` | Int | Description |
 |:---|:---:|:---|
 | `dd0` |`1` | scalar four-point one-loop function |
-| `dd1` | `4` | coefficient of ``p_{1μ}`` |
-| `dd2` | `7` | coefficient of ``p_{2μ}`` |
-| `dd3` | `10` | coefficient of ``p_{3μ}`` |
+| `dd1` | `4` | coefficient of ``k_{1μ}`` |
+| `dd2` | `7` | coefficient of ``k_{2μ}`` |
+| `dd3` | `10` | coefficient of ``k_{3μ}`` |
 | `dd00` | `13` | coefficient of ``g_{μν}`` |
 | `...` | `...` |  `...` |
-| `dd33333` | `238` | coefficient of ``p_{3μ} p_{3ν} p_{3ρ} p_{3σ} p_{3λ}`` |
+| `dd33333` | `238` | coefficient of ``k_{3μ} k_{3ν} k_{3ρ} k_{3σ} k_{3λ}`` |
+
+where $k_{1,2,3}$ are related to the external momenta $p_{1,2,3}$ by 
+```math
+k_{j} = \sum_{i=1^j} p_i.
 """
 function D0i(id, p1sq::Real, p2sq::Real, p3sq::Real, p4sq::Real, p12sq::Real, p23sq::Real,
                  m1sq::Real, m2sq::Real, m3sq::Real, m4sq::Real)

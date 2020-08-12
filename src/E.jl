@@ -51,12 +51,16 @@ Special cases:
 | `id` | Int | Description |
 |:---|:---:|:---|
 | `ee0` |`1` | scalar five-point one-loop function |
-| `ee1` | `4` | coefficient of ``p_{1μ}`` |
-| `ee2` | `7` | coefficient of ``p_{2μ}`` |
-| `ee3` | `10` | coefficient of ``p_{3μ}`` |
+| `ee1` | `4` | coefficient of ``k_{1μ}`` |
+| `ee2` | `7` | coefficient of ``k_{2μ}`` |
+| `ee3` | `10` | coefficient of ``k_{3μ}`` |
 | `ee00` | `13` | coefficient of ``g_{μν}`` |
 | `...` | `...` |  `...` |
-| `ee4444` | `256` | coefficient of ``p_{4μ} p_{4ν} p_{4ρ} p_{4σ}`` |
+| `ee4444` | `256` | coefficient of ``k_{4μ} k_{4ν} k_{4ρ} k_{4σ}`` |
+
+where $k_{1,2,3,4}$ are related to the external momenta $p_{1,2,3,4}$ by 
+```math
+k_{j} = \sum_{i=1^j} p_i.
 """
 function E0i(id, p1sq::Real, p2sq::Real, p3sq::Real, p4sq::Real, p5sq::Real, p12sq::Real,
         p23sq::Real, p34sq::Real, p45sq::Real, p51sq::Real, m1sq::Real, m2sq::Real,

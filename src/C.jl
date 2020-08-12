@@ -27,14 +27,19 @@ Special cases:
 | `id` | Int | Description |
 |:---|:---:|:---|
 | `cc0` |`1` | scalar three-point one-loop function |
-| `cc1` | `4` | coefficient of ``p_{1μ}`` |
-| `cc2` | `7` | coefficient of ``p_{2μ}`` |
+| `cc1` | `4` | coefficient of ``k_{1μ}`` |
+| `cc2` | `7` | coefficient of ``k_{2μ}`` |
 | `cc00` | `10` | coefficient of ``g_{μν}`` |
-| `cc11` | `13` | coefficient of ``p_{1μ} p_{1ν}`` |
-| `cc12` | `16` | coefficient of ``p_{1μ} p_{2ν}`` |
-| `cc22` | `19` | coefficient of ``p_{2μ} p_{2ν}`` |
+| `cc11` | `13` | coefficient of ``k_{1μ} k_{1ν}`` |
+| `cc12` | `16` | coefficient of ``k_{1μ} k_{2ν}`` |
+| `cc22` | `19` | coefficient of ``k_{2μ} k_{2ν}`` |
 | `...` | `...` |  `...` |
-| `cc2222` | `64` | coefficient of ``p_{2μ} p_{2ν} p_{2ρ} p_{2σ}`` |
+| `cc2222` | `64` | coefficient of ``k_{2μ} k_{2ν} k_{2ρ} k_{2σ}`` |
+
+where $k_{1,2}$ are related to $p_{1,2}$ by 
+```math
+k_{j} = \sum_{i=1^j} p_i.
+```
 """
 function C0i(id, p1sq::Real, p2sq::Real, p3sq::Real, m1sq::Real, m2sq::Real, m3sq::Real)
     ccall((:c0i_, libooptools), ComplexF64,

@@ -61,7 +61,7 @@ or in terms of the momenta $k_i$ as
 ```math
 C\left(k_1^2, (k_1-k_2)^2, k_2^2, m_1^2, m_2^2, m_3^2 \right).
 ```
-The coefficients computed are the coefficients of the momenta $k_i$, e.g., $C_1$ and $C_{112}$ are the coefficients of $k_{1\mu}$ and $k_{1\mu}k_{1\nu}k_{2\rho}$, respectively.
+The coefficients computed are the coefficients of the momenta $k_i$, e.g., $C_1$ and $C_{112}$ are the coefficients of $k_{1\mu}$ and $k_{1\mu}k_{1\nu}k_{2\rho}$, respectively. The advantage of this basis is that the tensor-coefficient functions are totally symmetric in the indices.
 
 ## Examples
 
