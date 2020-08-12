@@ -50,7 +50,7 @@ with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 A0(msq::Real) = A0i(aa0, msq)
 # ccall((:a0_, libooptools), ComplexF64, (Ref{Float64},), msq)
 
-A0(msq::ComplexF64) = ccall((:a0c_, libooptools), ComplexF64,
+A0(msq) = ccall((:a0c_, libooptools), ComplexF64,
         (Ref{ComplexF64},),
         msq)
 
