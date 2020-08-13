@@ -23,7 +23,7 @@ const dd12223 = 211; const dd12233 = 214; const dd12333 = 217;
 const dd13333 = 220; const dd22222 = 223; const dd22223 = 226; const dd22233 = 229;
 const dd22333 = 232; const dd23333 = 235; const dd33333 = 238
 
-const dcof = (:dd0, :dd1, :dd2, :dd3, :dd00, :dd11, :dd12, :dd13, :dd22, :dd23,
+const dcoef = (:dd0, :dd1, :dd2, :dd3, :dd00, :dd11, :dd12, :dd13, :dd22, :dd23,
     :dd33, :dd001, :dd002, :dd003, :dd111, :dd112, :dd113, :dd122, :dd123, :dd133, 
     :dd222, :dd223, :dd233, :dd333, :dd0000, :dd0011, :dd0012, :dd0013, :dd0022,
     :dd0023, :dd0033, :dd1111, :dd1112, :dd1113, :dd1122, :dd1123, :dd1133, :dd1222, 
@@ -60,8 +60,7 @@ Special cases:
 | `dd33333` | `238` | coefficient of ``k_{3μ} k_{3ν} k_{3ρ} k_{3σ} k_{3λ}`` |
 
 where $k_{1,2,3}$ are related to the external momenta $p_{1,2,3}$ by 
-```math
-k_{j} = \sum_{i=1^j} p_i.
+``k_{j} = \sum_{i=1}^j p_i``.
 """
 function D0i(id, p1sq::Real, p2sq::Real, p3sq::Real, p4sq::Real, p12sq::Real, p23sq::Real,
                  m1sq::Real, m2sq::Real, m3sq::Real, m4sq::Real)
@@ -95,13 +94,37 @@ with ``r_Γ = \frac{Γ^2(1-ε)Γ(1+ε)}{Γ(1-2ε)}``, ``D=4-2ε``.
 D0(p1sq, p2sq, p3sq, p4sq, p12sq, p23sq, m1sq, m2sq, m3sq, m4sq) = D0i(dd0,
     p1sq, p2sq, p3sq, p4sq, p12sq, p23sq, m1sq, m2sq, m3sq, m4sq)
 
-    
+
+
 """
     Dget(p1^2, p2^2, p3^2, p4^2, (p1+p2)^2, (p2+p3)^2, m1^2, m2^2, m3^2, m4^2)
 
 return a `NamedTuple` of all four-point coefficients.
+See also [`dget`](@ref).
 """ Dget
-let _str_ = join(["D0i($i, p1,p2,p3,p4,p12,p23,m1,m2,m3,m4)," for i in dcof])
-    Meta.parse(string("Dget(p1,p2,p3,p4,p12,p23,m1,m2,m3,m4) = NamedTuple{dcof}((", 
+
+@doc raw"""
+    dget(p1^2, p2^2, p3^2, p4^2, (p1+p2)^2, (p2+p3)^2, m1^2, m2^2, m3^2, m4^2)
+
+return all four-point coefficients; each one is characterized by three numbers, 
+with the later two coefficients of ``ε^{-1}`` and ``ε^{-2}``, respectively.
+See also [`Dget`](@ref) and [`dgetsym`](@ref).
+""" dget
+
+_define_get('D', 10, 80)
+
+function dget(p1sq::Real, p2sq::Real, p3sq::Real, p4sq::Real, p12sq::Real, p23sq::Real,
+              m1sq::Real, m2sq::Real, m3sq::Real, m4sq::Real) 
+    ccall((:dput_, libooptools), Cvoid,  
+        (Ptr{Vector{ComplexF64}}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64},
+        Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64},
+        Csize_t),
+        _Dres_, p1sq, p2sq, p3sq, p4sq, p12sq, p23sq, m1sq, m2sq, m3sq, m4sq, 240)
+    _Dres_
+end
+
+# Dgetnocache
+let _str_ = join(["D0i($i, p1,p2,p3,p4,p12,p23,m1,m2,m3,m4)," for i in dcoef])
+    Meta.parse(string("Dgetnocache(p1,p2,p3,p4,p12,p23,m1,m2,m3,m4) = NamedTuple{dcoef}((", 
                _str_[1:end-1], "))") ) |> eval 
 end

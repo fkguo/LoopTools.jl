@@ -2,6 +2,8 @@
 # The 1-point one-loop integrals
 const aa0 = 1; const aa00 = 4
 
+const acoef = (:aa0, :aa00)
+
 @doc raw"""
     A0i(id, m^2)
 
@@ -56,22 +58,32 @@ A0(msq) = ccall((:a0c_, libooptools), ComplexF64,
 
 A00(msq) = A0i(aa00, msq)
 
+
 """
     Aget(m^2)
 
-all one-point tensor coefficients.
-"""
-Aget(msq) = NamedTuple{(:aa0, :aa00)}((A0i(aa0, msq), A0i(aa00, msq)) )
-# in the fortran code, the type of aget is memindex (int*8)
-# Aget(msq) = ccall((:aget_, libooptools), Int64, #Tuple{Float64,Float64}, 
-#         (Ref{Float64}, ),
-#         msq)
+the finite piece of all one-point tensor coefficients.
+See also [`aget`](@ref).
+""" Aget
+
+@doc raw"""
+    aget(msq)
+
+return all one-point coefficients; each one is characterized by three numbers, 
+with the later two coefficients of ``ε^{-1}`` and ``ε^{-2}``, respectively.
+See also [`Aget`](@ref) and [`agetsym`](@ref).
+""" aget
+
+_define_get('A', 1, 2)
+
+function aget(msq::Real) 
+    ccall((:aput_, libooptools), Cvoid,  
+        (Ptr{Vector{ComplexF64}}, Ref{Float64}, Csize_t),
+        _Ares_, msq, 6)
+    _Ares_
+end
 
 
-# # the following code somehow only returns the first element...
-# function Aput!(res, msq) 
-#     ccall((:aput_, libooptools), Cvoid, 
-#         (Ptr{Vector{Float64}}, Ref{Float64}),
-#         res, msq)
-#     res
-# end
+# slower than `Aget`
+Agetnocache(msq) = NamedTuple{(:aa0, :aa00)}((A0i(aa0, msq), A0i(aa00, msq)) )
+

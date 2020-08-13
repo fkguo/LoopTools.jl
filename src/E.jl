@@ -20,7 +20,7 @@ const ee2244 = 229; const ee2333 = 232; const ee2334 = 235; const ee2344 = 238;
 const ee2444 = 241; const ee3333 = 244; const ee3334 = 247; const ee3344 = 250;
 const ee3444 = 253; const ee4444 = 256
 
-const ecof = (:ee0, :ee1, :ee2, :ee3, :ee4, :ee00, :ee11, :ee12, :ee13, :ee14,
+const ecoef = (:ee0, :ee1, :ee2, :ee3, :ee4, :ee00, :ee11, :ee12, :ee13, :ee14,
     :ee22, :ee23, :ee24, :ee33, :ee34, :ee44, :ee001, :ee002, :ee003, :ee004,
     :ee111, :ee112, :ee113, :ee114, :ee122, :ee123, :ee124, :ee133, :ee134, :ee144,
     :ee222, :ee223, :ee224, :ee233, :ee234, :ee244, :ee333, :ee334, :ee344, :ee444,
@@ -59,8 +59,7 @@ Special cases:
 | `ee4444` | `256` | coefficient of ``k_{4μ} k_{4ν} k_{4ρ} k_{4σ}`` |
 
 where $k_{1,2,3,4}$ are related to the external momenta $p_{1,2,3,4}$ by 
-```math
-k_{j} = \sum_{i=1^j} p_i.
+``k_{j} = \sum_{i=1}^j p_i``.
 """
 function E0i(id, p1sq::Real, p2sq::Real, p3sq::Real, p4sq::Real, p5sq::Real, p12sq::Real,
         p23sq::Real, p34sq::Real, p45sq::Real, p51sq::Real, m1sq::Real, m2sq::Real,
@@ -102,13 +101,43 @@ E0(p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq, m1sq, m2sq,
   m3sq, m4sq, m5sq) = E0i(ee0, p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq,
   p45sq, p51sq, m1sq, m2sq, m3sq, m4sq, m5sq)
 
-   
+  
 """
-    Eget(p1^2, p2^2, p3^2, p4^2, p5^2, (p1+p2)^2, (p2+p3)^2, (p3+p4)^2, (p4+p5)^2, (p5+p1)^2, m1^2, m2^2, m3^2, m4^2, m5^2)
+    Eget(p1^2, p2^2, p3^2, p4^2, p5^2, (p1+p2)^2, (p2+p3)^2, (p3+p4)^2, (p4+p5)^2, 
+    (p5+p1)^2, m1^2, m2^2, m3^2, m4^2, m5^2)
 
 return a `NamedTuple` of all five-point coefficients.
+See also [`eget`](@ref).
 """ Eget
-let _str_ = join(["E0i($i, p1,p2,p3,p4,p5,p12,p23,p34,p45,p51,m1,m2,m3,m4,m5)," for i in ecof])
-    Meta.parse(string("Eget(p1,p2,p3,p4,p5,p12,p23,p34,p45,p51,m1,m2,m3,m4,m5) = NamedTuple{ecof}((", 
+
+@doc raw"""
+    eget(p1^2, p2^2, p3^2, p4^2, p5^2, (p1+p2)^2, (p2+p3)^2, (p3+p4)^2, (p4+p5)^2, 
+    (p5+p1)^2, m1^2, m2^2, m3^2, m4^2, m5^2)
+
+return all five-point coefficients; each one is characterized by three numbers, 
+with the later two coefficients of ``ε^{-1}`` and ``ε^{-2}``, respectively.
+See also [`Eget`](@ref) and [`egetsym`](@ref).
+""" eget
+
+_define_get('E', 15, 86)
+
+# for all real args, if using the one from _defince_get, julia would crash; 
+# this does not happen for other cases, don't know why
+# _Eres_ defined via _define_get; 
+function eget(p1sq::Real, p2sq::Real, p3sq::Real, p4sq::Real, p5sq::Real, p12sq::Real,
+        p23sq::Real, p34sq::Real, p45sq::Real, p51sq::Real, m1sq::Real, m2sq::Real,
+        m3sq::Real, m4sq::Real, m5sq::Real) 
+    ccall((:eput_, libooptools), Cvoid,  
+        (Ptr{Vector{ComplexF64}}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64},
+        Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64},
+        Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Csize_t),
+        _Eres_, p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq,
+        m1sq, m2sq, m3sq, m4sq, m5sq, 258)
+    _Eres_
+end
+
+# Egetnocache
+let _str_ = join(["E0i($i, p1,p2,p3,p4,p5,p12,p23,p34,p45,p51,m1,m2,m3,m4,m5)," for i in ecoef])
+    Meta.parse(string("Egetnocache(p1,p2,p3,p4,p5,p12,p23,p34,p45,p51,m1,m2,m3,m4,m5) = NamedTuple{ecoef}((", 
                _str_[1:end-1], "))") ) |> eval 
 end

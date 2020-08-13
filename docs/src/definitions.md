@@ -63,24 +63,43 @@ C\left(k_1^2, (k_1-k_2)^2, k_2^2, m_1^2, m_2^2, m_3^2 \right).
 ```
 The coefficients computed are the coefficients of the momenta $k_i$, e.g., $C_1$ and $C_{112}$ are the coefficients of $k_{1\mu}$ and $k_{1\mu}k_{1\nu}k_{2\rho}$, respectively. The advantage of this basis is that the tensor-coefficient functions are totally symmetric in the indices.
 
-## Examples
+## UV, IR and collinear divergences
 
-```@example 1
-using LoopTools
-using PrettyPrinting
+### UV divergence
 
-Cget(1.87^2, 2.9^2, 5.28^2, 4.36^2, 2.01^2, 0.89^2 ) |> pprint
-```
+Using dimensional regularization, the UV divergence has the form ``1/\varepsilon -\gamma_E+\log(4\pi)``.
+In `LoopTools`, the UV divergence is kept as the ``1/\varepsilon`` part, and the finite part of this 
+combination is set as ``\Delta``, which is $0$ (default value in `LoopTools`) in the ``\overline{\rm MS}`` scheme.
+Setting ``\Delta=-2`` reproduces the one-loop functions of constrained differential renormalization 
+in [Nucl.Phys.B 537 (1999) 561](https://inspirehep.net/literature/472202).
+A change of ``\Delta`` can be obsorbed by a change of the dim. reg. scale ``\mu``: 
+``\mu_{\rm new}^2 = e^\Delta\mu_{\rm old}^2``. 
 
-```@example 1
-C0i(cc0, 1.87^2, 2.9^2, 5.28^2, 4.36^2, 2.01^2, 0.89^2)
-```
+Relevant functions: [`getdelta/setdelta`](@ref getdelta).
 
-```@example 1
-using Plots
 
-c0(x) = -C0(1.87^2, x^2, 5.28^2, (4.36-0.05im)^2, 2.01^2, 0.89^2 )
+### IR divergence
 
-plot(2.5:0.001:3.4, x-> real(c0(x)), label="Re" )
-plot!(2.5:0.001:3.4, x-> imag(c0(x)), label="Im" )
-```
+The treatment of the IR divergence is controlled by the parameter ``\lambda^2``. 
+- ``\lambda^2>0``: photon-mass regularization.
+- In dim. reg., ``\lambda^2=0`` gives the finite piece of the result, 
+  and ``\lambda^2=-1`` and ``\lambda^2=-2`` return the coefficients of ``1/\varepsilon``
+  and ``1/\varepsilon^2``, respectively.
+
+Relevant functions: [`getlambda/setlambda`](@ref getlambda).
+
+For ``\lambda^2\leq0``, the ``\varepsilon^{-1}`` component contains both the UV and IR divergences.
+The UV part can be switched off and on by `setuvdiv(1)` and `setuvdiv(0)`, respectively.
+
+Relevant functions: [`getuvdiv/setuvdiv`](@ref getuvdiv).
+
+
+### Collinear divergence
+
+For the collinear divergence, there is a parameter ``m_{\rm min}^2``; 
+all arguments smaller than that are set to 0 to detect the existence of collinear divergence.
+If there is a IR divergence, then ``m_{\rm min}^2`` is substituted back to ``p_i^2``.
+
+Relevant functions: [`getminmass/setminmass`](@ref getminmass).
+
+

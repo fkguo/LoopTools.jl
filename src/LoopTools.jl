@@ -1,8 +1,11 @@
+__precompile__(true)
+
 module LoopTools
 
-export A0, A0i, A00, Aget,
-       B0, B0i, B1, B00, B11, B001, B111, DB0, DB1, DB00, DB11, Bget,
-       C0, C0i, Cget, D0, D0i, Dget, E0, E0i, Eget
+export A0, A0i, A00, Aget, aget, Agetnocache, Li2, Li2omx,
+       B0, B0i, B1, B00, B11, B001, B111, DB0, DB1, DB00, DB11, Bget, bget, Bgetnocache,
+       C0, C0i, Cget, cget, Cgetnocache,
+       D0, D0i, Dget, dget, Dgetnocache, E0, E0i, Eget, eget, Egetnocache
 export aa0, bb0, bb1, bb00, bb11, bb001, bb111
 export dbb0, dbb1, dbb00, dbb11, dbb001
 export cc0, cc1, cc2, cc00, cc11, cc12, cc22, cc001, cc002, cc111, cc112, cc122
@@ -28,15 +31,18 @@ export libooptools
 export ltexi, clearcache, markcache, restorecache, getcmpbits, setcmpbits,
        getversionkey, setversionkey, getdebugkey, setdebugkey, getmaxdev, setmaxdev, 
        setdebugrange, getwarndigits, setwarndigits, geterrdigits, seterrdigits, getdelta, 
-       setdelta, getmudim, setmudim, getlambda, setlambda, getminmass, setminmass, setuvdiv,
-       getzeroeps, setzeroeps, setdiffeps, getepsi
+       setdelta, getmudim, setmudim, getlambda, setlambda, getminmass, setminmass, 
+       getuvdiv, setuvdiv, getzeroeps, setzeroeps, setdiffeps, getepsi
 
-export I, IC0
+export acoef, bcoef, ccoef, dcoef, ecoef
+
+export DRResult, ε, agetsym, bgetsym, cgetsym, dgetsym, egetsym
 
 using LoopTools_jll
 
 include("init.jl")
 
+include("meta.jl")
 
 include("A.jl")
 include("B.jl")
@@ -44,6 +50,9 @@ include("C.jl")
 include("D.jl")
 include("E.jl")
 
+include("Li2.jl")
 include("utils.jl")
 
-end # module
+include("sym.jl")
+
+end 

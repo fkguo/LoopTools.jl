@@ -4,7 +4,7 @@ const bb11 = 10; const bb001 = 13; const bb111 = 16
 const dbb0 = 19; const dbb1 = 22; const dbb00 = 25;
 const dbb11 = 28; const dbb001 = 31
 
-const bcof = (:bb0, :bb1, :bb00, :bb11, :bb001, :bb111, :dbb0, :dbb1, 
+const bcoef = (:bb0, :bb1, :bb00, :bb11, :bb001, :bb111, :dbb0, :dbb1, 
               :dbb00, :dbb11, :dbb001)
 
 @doc raw"""
@@ -77,21 +77,34 @@ for f in (:B0, :B1, :B00, :B11, :B001, :B111, :DB0, :DB1, :DB00, :DB11)
     end
 end
 
-"""
-    Bget(psq, m1sq, m2sq)
 
-return a `NamedTuple` of all two-point coefficients.
+"""
+    Bget(p^2, m1^2, m2^2)
+
+return a `NamedTuple` of the finite piece of all two-point coefficients.
+See also [`bget`](@ref).
 """ Bget
-let _str_ = join(["B0i($i, psq, m1sq, m2sq)," for i in bcof])
-    Meta.parse(string("Bget(psq, m1sq, m2sq) = NamedTuple{bcof}((", _str_[1:end-1], "))")) |> eval 
+
+@doc raw"""
+    bget(p^2, m1^2, m2^2)
+
+return all two-point coefficients; each one is characterized by three numbers, 
+with the later two coefficients of ``ε^{-1}`` and ``ε^{-2}``, respectively.
+See also [`Bget`](@ref) and [`bgetsym`](@ref).
+""" bget
+
+# define bget and Bget
+_define_get('B', 3, 11)
+
+function bget(p::Real, m1::Real, m2::Real) 
+    ccall((:bput_, libooptools), Cvoid,  
+        (Ptr{Vector{ComplexF64}}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Csize_t),
+        _Bres_, p, m1, m2, 33)
+    _Bres_
 end
 
-# much shorter using metaprogramming as above
-# function Bget(psq, m1sq, m2sq)
-#     NamedTuple{bcof}(
-#         (B0i(bb0, psq, m1sq, m2sq), B0i(bb1, psq, m1sq, m2sq), B0i(bb00, psq, m1sq, m2sq), 
-#         B0i(bb11, psq, m1sq, m2sq), B0i(bb001, psq, m1sq, m2sq), B0i(bb111, psq, m1sq, m2sq), 
-#         B0i(dbb0, psq, m1sq, m2sq), B0i(dbb1, psq, m1sq, m2sq), B0i(dbb00, psq, m1sq, m2sq), 
-#         B0i(dbb11, psq, m1sq, m2sq), B0i(dbb001, psq, m1sq, m2sq) ) 
-#     )
-# end
+# Bgetnocache
+let _str_ = join(["B0i($i, psq, m1sq, m2sq)," for i in bcoef])
+    Meta.parse(string("Bgetnocache(psq, m1sq, m2sq) = NamedTuple{bcoef}((", _str_[1:end-1], "))")) |> eval 
+end
+
