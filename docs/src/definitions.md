@@ -2,6 +2,8 @@
 
 Copied from the [`LoopTools` manual](https://github.com/fkguo/LoopTools.jl/blob/master/docs/LT215Guide.pdf).
 
+For details about the tensor reduction of one-loop integrals, see *A. Denner, S. Dittmaier, Reduction schemes for one-loop tensor integrals* [[hep-ph/0509141]](https://inspirehep.net/literature/692154).
+
 ## General one-loop integral
 
 Consider a general one-loop integral shown as follows:
@@ -67,15 +69,23 @@ The coefficients computed are the coefficients of the momenta $k_i$, e.g., $C_1$
 
 ### UV divergence
 
-Using dimensional regularization, the UV divergence has the form ``1/\varepsilon -\gamma_E+\log(4\pi)``.
+Using dimensional regularization, the UV divergence has the form ``1/\varepsilon -\gamma_E+\log(4\pi)``
+with $\varepsilon = (4-D)/2$.
+
+The 1-point scalar loop reads
+```math
+  A_0(m^2) = m^2 \left[ \Delta + \log\left( \frac{\mu^2}{m^2} \right) + 1 \right],
+```
+where $\Delta = 1/\varepsilon -\gamma_E+\log(4\pi)$.
+
 In `LoopTools`, the UV divergence is kept as the ``1/\varepsilon`` part, and the finite part of this 
 combination is set as ``\Delta``, which is $0$ (default value in `LoopTools`) in the ``\overline{\rm MS}`` scheme.
 Setting ``\Delta=-2`` reproduces the one-loop functions of constrained differential renormalization 
 in [Nucl.Phys.B 537 (1999) 561](https://inspirehep.net/literature/472202).
-A change of ``\Delta`` can be obsorbed by a change of the dim. reg. scale ``\mu``: 
+A change of ``\Delta`` can be absorbed by a change of the dim. reg. scale ``\mu``: 
 ``\mu_{\rm new}^2 = e^\Delta\mu_{\rm old}^2``. 
 
-Relevant functions: [`getdelta/setdelta`](@ref getdelta).
+Relevant functions: [`getdelta/setdelta`](@ref getdelta) and [`getmudim/setmudim`](@ref getmudim).
 
 
 ### IR divergence
