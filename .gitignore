@@ -28,6 +28,3 @@ Manifest.toml
 test/*.ipynb
 test/*.nb
 
-src/sym.jl
-
-.gitignore
