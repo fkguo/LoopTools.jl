@@ -97,10 +97,12 @@ D0(p1sq, p2sq, p3sq, p4sq, p12sq, p23sq, m1sq, m2sq, m3sq, m4sq) = D0i(dd0,
 
 
 """
-    Dget(p1^2, p2^2, p3^2, p4^2, (p1+p2)^2, (p2+p3)^2, m1^2, m2^2, m3^2, m4^2)
+    Dget(p1^2, p2^2, p3^2, p4^2, (p1+p2)^2, (p2+p3)^2, 
+    m1^2, m2^2, m3^2, m4^2; val_only = false)
 
-return a `NamedTuple` of all four-point coefficients.
+return the finite piece of all four-point coefficients.
 See also [`dget`](@ref).
+* val_only = false, return a `NamedTuple`; otherwise return a `Tuple`.
 """ Dget
 
 @doc raw"""

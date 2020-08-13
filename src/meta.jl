@@ -25,10 +25,13 @@ function _define_get(L, narg::Int, ncoef::Int)
 
     # define Lget functions
     Meta.parse(
-        string("function $(L)get($(_args));",
+        string("function $(L)get($(_args); val_only = false);",
         "_a = $(_l)get($(_args));", 
-        "NamedTuple{$(_l)coef}((", _str2_[1:end-1], ")); end" )
+        "val_only ? (", _str2_[1:end-1], ") : ", 
+        "NamedTuple{$(_l)coef}((", _str2_[1:end-1], "));",  
+        "end" )
     ) |> eval
+
 end
 
 

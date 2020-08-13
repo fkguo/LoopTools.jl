@@ -60,10 +60,11 @@ A00(msq) = A0i(aa00, msq)
 
 
 """
-    Aget(m^2)
+    Aget(m^2; val_only = false)
 
 the finite piece of all one-point tensor coefficients.
 See also [`aget`](@ref).
+* val_only = false, return a `NamedTuple`; otherwise return a `Tuple`.
 """ Aget
 
 @doc raw"""

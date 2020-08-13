@@ -79,10 +79,11 @@ end
 
 
 """
-    Bget(p^2, m1^2, m2^2)
+    Bget(p^2, m1^2, m2^2; val_only = false)
 
-return a `NamedTuple` of the finite piece of all two-point coefficients.
+return the finite piece of all two-point coefficients.
 See also [`bget`](@ref).
+* val_only = false, return a `NamedTuple`; otherwise return a `Tuple`.
 """ Bget
 
 @doc raw"""
