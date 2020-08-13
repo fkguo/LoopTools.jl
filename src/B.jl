@@ -83,7 +83,7 @@ end
 
 return the finite piece of all two-point coefficients.
 See also [`bget`](@ref).
-* val_only = false, return a `NamedTuple`; otherwise return a `NTuple`.
+* `val_only = false`, return a `NamedTuple`; otherwise return a `NTuple`.
 """ Bget
 
 @doc raw"""

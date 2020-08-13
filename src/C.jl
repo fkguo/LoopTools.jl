@@ -85,7 +85,7 @@ end
 
 return the finite piece of all three-point coefficients.
 See also [`cget`](@ref).
-* val_only = false, return a `NamedTuple`; otherwise return a `NTuple`.
+* `val_only = false`, return a `NamedTuple`; otherwise return a `NTuple`.
 """ Cget
 
 @doc raw"""

@@ -102,7 +102,7 @@ D0(p1sq, p2sq, p3sq, p4sq, p12sq, p23sq, m1sq, m2sq, m3sq, m4sq) = D0i(dd0,
 
 return the finite piece of all four-point coefficients.
 See also [`dget`](@ref).
-* val_only = false, return a `NamedTuple`; otherwise return a `NTuple`.
+* `val_only = false`, return a `NamedTuple`; otherwise return a `NTuple`.
 """ Dget
 
 @doc raw"""
