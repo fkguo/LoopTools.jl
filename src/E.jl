@@ -114,7 +114,7 @@ E0(p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq, m1sq, m2sq,
 
 return the finite piece of all five-point coefficients.
 See also [`eget`](@ref).
-* val_only = false, return a `NamedTuple`; otherwise return a `Tuple`.
+* val_only = false, return a `NamedTuple`; otherwise return a `NTuple`.
 """ Eget
 
 @doc raw"""

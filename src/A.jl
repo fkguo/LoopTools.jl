@@ -64,7 +64,7 @@ A00(msq) = A0i(aa00, msq)
 
 the finite piece of all one-point tensor coefficients.
 See also [`aget`](@ref).
-* val_only = false, return a `NamedTuple`; otherwise return a `Tuple`.
+* val_only = false, return a `NamedTuple`; otherwise return a `NTuple`.
 """ Aget
 
 @doc raw"""
