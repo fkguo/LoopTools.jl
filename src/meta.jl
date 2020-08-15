@@ -32,6 +32,15 @@ function _define_get(L, narg::Int, ncoef::Int)
         "end" )
     ) |> eval
 
+    # define lput! functions
+    Meta.parse(
+        string("function $(_l)put!(res::Vector{ComplexF64}, $(_args));",
+            """@assert length(res)==$(3ncoef) "length should be $(3ncoef)";""",
+            "ccall((:$(_l)putc_, libooptools), Cvoid,", 
+            "(Ptr{Vector{ComplexF64}},", _str_, "Csize_t),",
+            "res,", _args, ", $(_size) ); res; end")
+    ) |> eval
+
 end
 
 

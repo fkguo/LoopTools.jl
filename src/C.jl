@@ -85,7 +85,7 @@ end
 
 return the finite piece of all three-point coefficients.
 See also [`cget`](@ref).
-* `val_only = false`, return a `NamedTuple`; otherwise return a `NTuple`.
+* `val_only = false`, return a `NamedTuple`; otherwise return an `NTuple`.
 """ Cget
 
 @doc raw"""
@@ -93,8 +93,18 @@ See also [`cget`](@ref).
 
 return all three-point coefficients; each one is characterized by three numbers, 
 with the later two coefficients of ``ε^{-1}`` and ``ε^{-2}``, respectively.
+
 See also [`Cget`](@ref) and [`cgetsym`](@ref).
 """ cget
+
+
+@doc raw"""
+    cput!(res::Vector{ComplexF64}, p1^2, p2^2, (p1+p2)^2, m1^2, m2^2, m3^2)
+
+return all three-point coefficients to the preallocated array `res` of length 66.
+
+See also [`cget`](@ref) and [`cgetsym`](@ref).
+""" cput!
 
 _define_get('C', 6, 22)
 
