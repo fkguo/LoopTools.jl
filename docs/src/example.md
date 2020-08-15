@@ -14,7 +14,7 @@ Tensor-coefficients:
 using LoopTools
 using PrettyPrinting, BenchmarkTools
 
-@btime Cget(1.87^2, 2.9^2, 5.28^2, 4.36^2, 2.01^2, 0.89^2 ) |> pprint
+(@btime Cget(1.87^2, 2.9^2, 5.28^2, 4.36^2, 2.01^2, 0.89^2) ) |> pprint
 ```
 Here we used `Cget` (upper case for the first letter) which returns only the finite piece. If `val_only=true` (default to `false`), then numerical values are given as an `NTuple`. If we want also the coefficients of ``1/\varepsilon`` and ``\varepsilon^{-2}``, we need `cget` (lower case) or `cgetsym`, see below.
 
@@ -28,27 +28,28 @@ Preallocate a vector to receive results from `bput!`:
 ```@example 1
 const res = Vector{ComplexF64}(undef, 33)
 @btime bput!(res, 1, 0.1, 0.1)
+pprint(res)
 ```
 
-Or using `bget`, for which the preallocated array was already defined 
-inside the package as `LoopTools._Bres_` (similar for other-point loops).
-```@example 1
-@btime bget(1, 0.1, 0.1)
-```
+The same result can be obtained using `bget(1, 0.1, 0.1)`, which takes 
+only the `p^2, m1^2, m2^2` as the arguments, and the preallocated array has already been defined 
+inside the package as `LoopTools._Bres_` (`LoopTools._Cres_` for the three-point loop and so on).
 
-Writing out the ``\varepsilon^{-1}`` (corresponding to `DR1eps` in the `Mathematica` version), explicitly
+
+Writing out the ``\varepsilon^{-1}`` (corresponding to `DR1eps` in the `Mathematica` version) terms explicitly:
 ```@example 1
 bgetsym(1, 0.1, 0.1) |> pprint
 ```
 
 
 ```@example 1
-@btime Bget(1, 0.1, 0.1)
+Bget(1, 0.1, 0.1, val_only = true)
 ```
 
-Real and imaginary parts of the scalar integral:
+Real and imaginary parts of a three-point scalar integral showing 
+the effect of the Landau singularity:
 ```@example 1
-using Plots
+using Plots; default(frame=:box, minorticks=4)
 
 c0(x) = -C0(1.87^2, x^2, 5.28^2, (4.36-0.05im)^2, 2.01^2, 0.89^2 )
 
