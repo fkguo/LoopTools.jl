@@ -64,7 +64,7 @@ A00(msq) = A0i(aa00, msq)
 
 the finite piece of all one-point tensor coefficients.
 See also [`aget`](@ref).
-* `val_only = false`, return a `NamedTuple`; otherwise return a `NTuple`.
+* `val_only = false`, return a `NamedTuple`; otherwise return an `NTuple`.
 """ Aget
 
 @doc raw"""
@@ -72,8 +72,18 @@ See also [`aget`](@ref).
 
 return all one-point coefficients; each one is characterized by three numbers, 
 with the later two coefficients of ``ε^{-1}`` and ``ε^{-2}``, respectively.
+
 See also [`Aget`](@ref) and [`agetsym`](@ref).
 """ aget
+
+@doc raw"""
+    aput!(res::Vector{ComplexF64}, msq)
+
+return all one-point coefficients to the preallocated array `res` of length 6.
+
+See also [`aget`](@ref) and [`agetsym`](@ref).
+""" aput!
+
 
 _define_get('A', 1, 2)
 

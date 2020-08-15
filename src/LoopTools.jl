@@ -4,7 +4,7 @@ module LoopTools
 
 export A0, A0i, A00, Aget, aget, Agetnocache, Li2, Li2omx,
        B0, B0i, B1, B00, B11, B001, B111, DB0, DB1, DB00, DB11, Bget, bget, Bgetnocache,
-       C0, C0i, Cget, cget, Cgetnocache,
+       C0, C0i, Cget, cget, Cgetnocache, aput!, bput!, cput!, dput!, eput!,
        D0, D0i, Dget, dget, Dgetnocache, E0, E0i, Eget, eget, Egetnocache
 export aa0, bb0, bb1, bb00, bb11, bb001, bb111
 export dbb0, dbb1, dbb00, dbb11, dbb001

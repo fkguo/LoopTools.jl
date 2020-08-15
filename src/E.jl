@@ -114,7 +114,7 @@ E0(p1sq, p2sq, p3sq, p4sq, p5sq, p12sq, p23sq, p34sq, p45sq, p51sq, m1sq, m2sq,
 
 return the finite piece of all five-point coefficients.
 See also [`eget`](@ref).
-* `val_only = false`, return a `NamedTuple`; otherwise return a `NTuple`.
+* `val_only = false`, return a `NamedTuple`; otherwise return an `NTuple`.
 """ Eget
 
 @doc raw"""
@@ -125,6 +125,16 @@ return all five-point coefficients; each one is characterized by three numbers,
 with the later two coefficients of ``ε^{-1}`` and ``ε^{-2}``, respectively.
 See also [`Eget`](@ref) and [`egetsym`](@ref).
 """ eget
+
+@doc raw"""
+    eput!(res::Vector{ComplexF64}, p1^2, p2^2, p3^2, p4^2, p5^2, (p1+p2)^2, 
+    (p2+p3)^2, (p3+p4)^2, (p4+p5)^2, (p5+p1)^2, m1^2, m2^2, m3^2, m4^2, m5^2)
+
+return all five-point coefficients to the preallocated array `res` of length 258.
+
+See also [`eget`](@ref) and [`egetsym`](@ref).
+""" eput!
+
 
 _define_get('E', 15, 86)
 
