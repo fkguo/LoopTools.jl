@@ -1,7 +1,7 @@
 name = "LoopTools"
 uuid = "928ab408-997d-4a59-a6b5-2799fca5a421"
 authors = ["Feng-Kun Guo <fkguo@itp.ac.cn>"]
-version = "0.1.1"
+version = "0.1.2"
 
 [deps]
 LoopTools_jll = "e275ce21-2bb6-5a50-939e-e917944b1aed"
