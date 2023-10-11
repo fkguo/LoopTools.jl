@@ -7,4 +7,4 @@
 
 This is a julia wrapper of functions in the [LoopTools package](http://www.feynarts.de/looptools/) for computing one-loop integrals.
 
-Install by `] add https://github.com/fkguo/LoopTools.jl.git`.
+Install by `] add LoopTools`.
