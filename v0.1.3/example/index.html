@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Example · LoopTools.jl</title><meta name="title" content="Example · LoopTools.jl"/><meta property="og:title" content="Example · LoopTools.jl"/><meta property="twitter:title" content="Example · LoopTools.jl"/><meta name="description" content="Documentation for LoopTools.jl."/><meta property="og:description" content="Documentation for LoopTools.jl."/><meta property="twitter:description" content="Documentation for LoopTools.jl."/><meta property="og:url" content="https://fkguo.github.io/LoopTools.jl/example/"/><meta property="twitter:url" content="https://fkguo.github.io/LoopTools.jl/example/"/><link rel="canonical" href="https://fkguo.github.io/LoopTools.jl/example/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">LoopTools.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../definitions/">Definitions</a></li><li class="is-active"><a class="tocitem" href>Example</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Example</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Example</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/fkguo/LoopTools.jl/blob/master/docs/src/example.md#L" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Examples"><a class="docs-heading-anchor" href="#Examples">Examples</a><a id="Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Examples" title="Permalink"></a></h1><p><img src="../triangle.png" alt="triangle"/></p><p>Let us compute the 3-point loop integral:</p><p class="math-container">\[C\left(p_1^2, p_2^2, (p_1+p_2)^2, m_1^2, m_2^2, m_3^2 \right)\]</p><p>with some hadron masses as input.</p><p>Tensor-coefficients:</p><pre><code class="language-julia hljs">using LoopTools
+using PrettyPrinting, BenchmarkTools
+
+(@btime Cget(1.87^2, 2.9^2, 5.28^2, 4.36^2, 2.01^2, 0.89^2) ) |&gt; pprint</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">  57.364 ns (0 allocations: 0 bytes)
+(cc0 = -1.676065106709337 - 0.8032383928240837im,
+ cc1 = 0.4007547354186678 + 0.06709888819168383im,
+ cc2 = 1.1594541284179152 + 0.63642552106893im,
+ cc00 = -0.19307680361239576 + 0.009300255685469772im,
+ cc11 = -0.11351116611462037 - 0.006601093485707071im,
+ cc12 = -0.26278678952141316 - 0.052753879978476866im,
+ cc22 = -0.8269246763655919 - 0.5047581457198267im,
+ cc001 = 0.08466885775250026 - 0.00043166194847799044im,
+ cc002 = -0.02344246530388124 - 0.007511019461419484im,
+ cc111 = 0.039443005589594154 + 0.0006912870526907297im,
+ cc112 = 0.06723289692006137 + 0.005172601848264992im,
+ cc122 = 0.18207873204368227 + 0.041498266362315496im,
+ cc222 = 0.5983080522608848 + 0.4007458270673885im,
+ cc0000 = -0.5423277918543472 - 7.627040500099436e-5im,
+ cc0011 = -0.04797735271537293 + 2.9128904844004638e-5im,
+ cc0012 = -0.003134102699814385 + 0.00034487079553350484im,
+ cc0022 = 0.04248884897570692 + 0.006070285266030245im,
+ cc1111 = -0.01719212347824144 - 7.484663783194328e-5im,
+ cc1112 = -0.019663294851511977 - 0.0005406806372725127im,
+ cc1122 = -0.04452802455210807 - 0.004054700047145228im,
+ cc1222 = -0.12875442947459653 - 0.032662599188956955im,
+ cc2222 = -0.4373679515628131 - 0.3185092200142066im)</code></pre><p>Here we used <code>Cget</code> (upper case for the first letter) which returns only the finite piece. If <code>val_only=true</code> (default to <code>false</code>), then numerical values are given as an <code>NTuple</code>. If we want also the coefficients of <span>$1/\varepsilon$</span> and <span>$\varepsilon^{-2}$</span>, we need <code>cget</code> (lower case) or <code>cgetsym</code>, see below.</p><p>Scalar integral:</p><pre><code class="language-julia hljs"># or simply using `C0`
+C0i(cc0, 1.87^2, 2.9^2, 5.28^2, 4.36^2, 2.01^2, 0.89^2)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">-1.676065106709337 - 0.8032383928240837im</code></pre><p>Preallocate a vector to receive results from <code>bput!</code>:</p><pre><code class="language-julia hljs">const res = Vector{ComplexF64}(undef, 33)
+@btime bput!(res, 1, 0.1, 0.1)
+pprint(res)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">  26.563 ns (0 allocations: 0 bytes)
+[2.7042536122381353 + 2.433467205584167im,
+ 1.0 + 0.0im,
+ 0.0 + 0.0im,
+ -1.3521268061190677 - 1.2167336027920834im,
+ -0.5 + 0.0im,
+ 0.0 + 0.0im,
+ -0.10239181795089487 - 0.12167336027920835im,
+ -0.033333333333333326 + 0.0im,
+ 0.0 + 0.0im,
+ 0.9435844756601309 + 0.7300401616752501im,
+ 0.3333333333333333 + 0.0im,
+ 0.0 + 0.0im,
+ 0.05119590897544743 + 0.06083668013960418im,
+ 0.016666666666666666 + 0.0im,
+ 0.0 + 0.0im,
+ -0.7393133104306626 - 0.48669344111683344im,
+ -0.25 + 0.0im,
+ 0.0 + 0.0im,
+ -1.5327771602519702 + 0.8111557351947223im,
+ 0.0 + 0.0im,
+ 0.0 + 0.0im,
+ 0.7663885801259851 - 0.40557786759736114im,
+ 0.0 + 0.0im,
+ 0.0 + 0.0im,
+ -0.2042711652294683 - 0.2433467205584167im,
+ -0.08333333333333333 + 0.0im,
+ 0.0 + 0.0im,
+ -0.44644419743412134 + 0.32446229407788896im,
+ 0.0 + 0.0im,
+ 0.0 + 0.0im,
+ 0.10213558261473414 + 0.12167336027920836im,
+ 0.041666666666666664 + 0.0im,
+ 0.0 + 0.0im]</code></pre><p>The same result can be obtained using <code>bget(1, 0.1, 0.1)</code>, which takes  only the <code>p^2, m1^2, m2^2</code> as the arguments, and the preallocated array has already been defined  inside the package as <code>LoopTools._Bres_</code> (<code>LoopTools._Cres_</code> for the three-point loop and so on).</p><p>Writing out the <span>$\varepsilon^{-1}$</span> (corresponding to <code>DR1eps</code> in the <code>Mathematica</code> version) terms explicitly:</p><pre><code class="language-julia hljs">bgetsym(1, 0.1, 0.1) |&gt; pprint</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">(bb0 = (2.704254 + 2.433467im) + 1.0 / ε,
+ bb1 = -1.352127 + -0.5 / ε,
+ bb00 = -0.102392 + -0.033333 / ε,
+ bb11 = (0.943584 + 0.73004im) + 0.333333 / ε,
+ bb001 = (0.051196 + 0.060837im) + 0.016667 / ε,
+ bb111 = -0.739313 + -0.25 / ε,
+ dbb0 = (-1.532777 + 0.811156im),
+ dbb1 = 0.766389,
+ dbb00 = -0.204271 + -0.083333 / ε,
+ dbb11 = (-0.446444 + 0.324462im),
+ dbb001 = (0.102136 + 0.121673im) + 0.041667 / ε)</code></pre><pre><code class="language-julia hljs">Bget(1, 0.1, 0.1, val_only = true)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">(2.7042536122381353 + 2.433467205584167im, -1.3521268061190677 - 1.2167336027920834im, -0.10239181795089487 - 0.12167336027920835im, 0.9435844756601309 + 0.7300401616752501im, 0.05119590897544743 + 0.06083668013960418im, -0.7393133104306626 - 0.48669344111683344im, -1.5327771602519702 + 0.8111557351947223im, 0.7663885801259851 - 0.40557786759736114im, -0.2042711652294683 - 0.2433467205584167im, -0.44644419743412134 + 0.32446229407788896im, 0.10213558261473414 + 0.12167336027920836im)</code></pre><p>Real and imaginary parts of a three-point scalar integral showing  the effect of the Landau singularity:</p><pre><code class="language-julia hljs">using Plots; default(frame=:box, minorticks=4)
+
+c0(x) = -C0(1.87^2, x^2, 5.28^2, (4.36-0.05im)^2, 2.01^2, 0.89^2 )
+
+plot(2.5:0.001:3.4, x-&gt; real(c0(x)), label=&quot;Re&quot; )
+plot!(2.5:0.001:3.4, x-&gt; imag(c0(x)), label=&quot;Im&quot; )</code></pre><img src="c6b110e8.svg" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../definitions/">« Definitions</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Tuesday 23 June 2026 19:48">Tuesday 23 June 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
